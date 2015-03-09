@@ -2,4 +2,7 @@ hs.pathwatcher.new(hs.configdir, function()
   hs.reload()
 end):start()
 
-hs.alert.show('Hammerspoon config reloaded')
+hs.notify.new({
+  title='Hammerspoon',
+  informativeText='Config reloaded'
+}):send()
