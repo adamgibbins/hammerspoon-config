@@ -11,6 +11,7 @@ hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') e
 hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Spotify') end)
 hs.hotkey.bind(modHyper, 'v', function() hs.application.launchOrFocus('Vox') end)
+hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 
 hs.battery.watcher.new(function()
   batteryPercentage = hs.battery.percentage()
