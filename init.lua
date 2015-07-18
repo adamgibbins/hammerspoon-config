@@ -1,5 +1,6 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
 
+-- Reload configuration on changes
 hs.pathwatcher.new(hs.configdir, function(files)
   for _,file in pairs(files) do
     if file:sub(-4) == '.lua' then
@@ -13,12 +14,15 @@ hs.notify.new({
   informativeText='Config reloaded'
 }):send()
 
+-- Mute sounds on suspend
 hs.caffeinate.watcher.new(function()
   if hs.caffeinate.watcher.systemWillSleep then
     hs.audiodevice.defaultOutputDevice():setVolume(0)
   end
 end):start()
 
+
+-- Replicate Caffeine.app - click to toggle auto sleep
 local caffeine = hs.menubar.new()
 
 function setCaffeineDisplay(state)
@@ -40,15 +44,7 @@ if caffeine then
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
 
-hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
-hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') end)
-hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
-hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
-hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
-hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Spotify') end)
-hs.hotkey.bind(modHyper, 'v', function() hs.application.launchOrFocus('Vox') end)
-hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
-
+-- Notify on power source state changes
 powerSourcePrevious = nil
 
 hs.battery.watcher.new(function()
@@ -63,3 +59,13 @@ hs.battery.watcher.new(function()
     powerSourcePrevious = powerSource
   end
 end):start()
+
+-- Misc bindings
+hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
+hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') end)
+hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
+hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
+hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
+hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Spotify') end)
+hs.hotkey.bind(modHyper, 'v', function() hs.application.launchOrFocus('Vox') end)
+hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
