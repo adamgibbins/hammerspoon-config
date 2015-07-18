@@ -1,14 +1,17 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
 
-function reloadConfig(files)
+hs.pathwatcher.new(hs.configdir, function(files)
   for _,file in pairs(files) do
     if file:sub(-4) == '.lua' then
       hs.reload()
     end
   end
-end
+end):start()
 
-hs.pathwatcher.new(hs.configdir, reloadConfig):start()
+hs.notify.new({
+  title='Hammerspoon',
+  informativeText='Config reloaded'
+}):send()
 
 hs.caffeinate.watcher.new(function()
   if hs.caffeinate.watcher.systemWillSleep then
@@ -60,8 +63,3 @@ hs.battery.watcher.new(function()
     powerSourcePrevious = powerSource
   end
 end):start()
-
-hs.notify.new({
-  title='Hammerspoon',
-  informativeText='Config reloaded'
-}):send()
