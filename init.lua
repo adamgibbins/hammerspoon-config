@@ -10,6 +10,12 @@ end
 
 hs.pathwatcher.new(hs.configdir, reloadConfig):start()
 
+hs.caffeinate.watcher.new(function()
+  if hs.caffeinate.watcher.systemWillSleep then
+    hs.audiodevice.defaultOutputDevice():setVolume(0)
+  end
+end):start()
+
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
