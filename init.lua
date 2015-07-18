@@ -1,8 +1,14 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
 
-hs.pathwatcher.new(hs.configdir, function()
-  hs.reload()
-end):start()
+function reloadConfig(files)
+  for _,file in pairs(files) do
+    if file:sub(-4) == '.lua' then
+      hs.reload()
+    end
+  end
+end
+
+hs.pathwatcher.new(hs.configdir, reloadConfig):start()
 
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') end)
