@@ -46,7 +46,20 @@ hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Spotify')
 hs.hotkey.bind(modHyper, 'v', function() hs.application.launchOrFocus('Vox') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 
+powerSourcePrevious = nil
+
 hs.battery.watcher.new(function()
+  powerSource = hs.battery.powerSource()
+
+  if powerSource ~= powerSourcePrevious then
+    hs.notify.new({
+      title = 'Power Source',
+      informativeText = powerSource
+    }):send()
+
+    powerSourcePrevious = powerSource
+  end
+
   batteryPercentage = hs.battery.percentage()
 
   if batteryPercentage ~= batteryPreviousPercentage and batteryPercentage < 20 and not hs.battery.isCharging() then
