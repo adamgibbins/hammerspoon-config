@@ -59,17 +59,6 @@ hs.battery.watcher.new(function()
 
     powerSourcePrevious = powerSource
   end
-
-  batteryPercentage = hs.battery.percentage()
-
-  if batteryPercentage ~= batteryPreviousPercentage and batteryPercentage < 20 and not hs.battery.isCharging() then
-    hs.notify.new({
-      title='Battery Status',
-      informativeText='Battery needs charge!'
-    })
-  end
-
-  batteryPreviousPercentage = batteryPercentage
 end):start()
 
 hs.notify.new({
