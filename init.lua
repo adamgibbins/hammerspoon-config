@@ -21,7 +21,6 @@ hs.caffeinate.watcher.new(function()
   end
 end):start()
 
-
 -- Replicate Caffeine.app - click to toggle auto sleep
 local caffeine = hs.menubar.new()
 
@@ -69,3 +68,4 @@ hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Spotify') end)
 hs.hotkey.bind(modHyper, 'v', function() hs.application.launchOrFocus('Vox') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
+hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
