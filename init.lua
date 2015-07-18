@@ -16,6 +16,27 @@ hs.caffeinate.watcher.new(function()
   end
 end):start()
 
+local caffeine = hs.menubar.new()
+
+function setCaffeineDisplay(state)
+  -- Icons originally from https://github.com/cmsj/hammerspoon-config
+  local result
+  if state then
+    result = caffeine:setIcon('caffeine-on.pdf')
+  else
+    result = caffeine:setIcon('caffeine-off.pdf')
+  end
+end
+
+function caffeineClicked()
+  setCaffeineDisplay(hs.caffeinate.toggle('displayIdle'))
+end
+
+if caffeine then
+  caffeine:setClickCallback(caffeineClicked)
+  setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
+end
+
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
