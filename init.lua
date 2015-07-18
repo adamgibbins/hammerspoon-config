@@ -61,11 +61,11 @@ end):start()
 
 -- Misc bindings
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
+hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
 hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
 hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Spotify') end)
 hs.hotkey.bind(modHyper, 'v', function() hs.application.launchOrFocus('Vox') end)
-hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
