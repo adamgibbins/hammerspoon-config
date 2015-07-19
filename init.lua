@@ -74,7 +74,7 @@ hs.battery.watcher.new(function()
   end
 
   -- Notify when battery is low
-  batteryPercentage = hs.battery.percentage()
+  batteryPercentage = tonumber(hs.battery.percentage())
 
   if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
     hs.notify.new({
