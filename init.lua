@@ -1,4 +1,5 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
+local homeSSID = 'woland'
 
 -- Reload configuration on changes
 hs.pathwatcher.new(hs.configdir, function(files)
@@ -42,6 +43,17 @@ if caffeine then
   caffeine:setClickCallback(caffeineClicked)
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
+
+-- Turn Caffeine off when leaving home network
+hs.wifi.watcher.new(function()
+  if hs.wifi.currentNetwork() == homeSSID then
+    hs.caffeinate.set('displayIdle', true)
+  else
+    hs.caffeinate.set('displayIdle', false)
+  end
+
+  setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
+end):start()
 
 -- Notify on power source state changes
 powerSourcePrevious = nil
