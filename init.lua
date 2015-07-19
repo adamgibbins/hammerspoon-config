@@ -95,5 +95,6 @@ hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm') e
 hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
 hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
 hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
+hs.hotkey.bind(modHyper, 'p', function() hs.spotify.displayCurrentTrack() end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
