@@ -55,10 +55,11 @@ hs.wifi.watcher.new(function()
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end):start()
 
--- Notify on power source state changes
 powerSourcePrevious = nil
+batteryPercentagePrevious = nil
 
 hs.battery.watcher.new(function()
+  -- Notify on power source state changes
   powerSource = hs.battery.powerSource()
 
   if powerSource ~= powerSourcePrevious then
@@ -68,6 +69,18 @@ hs.battery.watcher.new(function()
     }):send()
 
     powerSourcePrevious = powerSource
+  end
+
+  -- Notify when battery is low
+  batteryPercentage = hs.battery.percentage()
+
+  if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
+    hs.notify.new({
+      title = 'Battery Status',
+      informativeText = string.format('%d%% battery remaining!', batteryPercentage),
+    }):send()
+
+    batteryPercentagePrevious = batteryPercentage
   end
 end):start()
 
