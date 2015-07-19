@@ -87,6 +87,7 @@ end):start()
 -- Misc bindings
 hs.hotkey.bind(modHyper, '1', function() hs.application.launchOrFocus('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() hs.application.launchOrFocus('Vox') end)
+hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Safari') end)
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'h', function() os.execute('open ~') end)
