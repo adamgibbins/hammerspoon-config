@@ -79,7 +79,7 @@ hs.battery.watcher.new(function()
   if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
     hs.notify.new({
       title = 'Battery Status',
-      informativeText = string.format('%d%% battery remaining!', batteryPercentage),
+      informativeText = batteryPercentage .. '% battery remaining!',
     }):send()
 
     batteryPercentagePrevious = batteryPercentage
