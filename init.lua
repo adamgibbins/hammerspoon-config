@@ -95,16 +95,16 @@ function setAudioOutput(device)
 
   if hardwareDevice then
     hardwareDevice:setDefaultOutputDevice()
+
+    -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
+    if device == talkDevice then
+      hardwareDevice:setVolume(20)
+    end
   else
     hs.notify.new({
       title = 'Audio Alert',
       informativeText = device .. ' is missing!',
     }):send()
-  end
-
-  -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
-  if device == talkDevice then
-    hardwareDevice:setVolume(20)
   end
 end
 
