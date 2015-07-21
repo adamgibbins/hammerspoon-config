@@ -1,7 +1,11 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
 local homeSSID = 'woland'
+local workSSID = 'timgroup_corp'
 local talkDevice = 'Microsoft LifeChat LX-3000'
 local musicDevice = 'ODAC'
+local screenLeft = ''
+local screenMiddle = ''
+local screenInternal = 'Color LCD'
 
 -- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
@@ -58,6 +62,11 @@ hs.wifi.watcher.new(function()
   end
 
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
+
+  -- Set brightness to max when at work and plugged in
+  if hs.wifi.currentNetwork() == workSSID and hs.battery.isCharging() then
+    hs.brightness.set(100)
+  end
 end):start()
 
 powerSourcePrevious = nil
