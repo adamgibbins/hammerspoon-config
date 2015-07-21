@@ -49,8 +49,8 @@ if caffeine then
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
 
--- Turn Caffeine off when leaving home network
 hs.wifi.watcher.new(function()
+  -- Turn Caffeine off when leaving home network
   if hs.wifi.currentNetwork() == homeSSID then
     hs.caffeinate.set('displayIdle', true)
   else
@@ -100,6 +100,11 @@ function setAudioOutput(device)
       title = 'Audio Alert',
       informativeText = device .. ' is missing!',
     }):send()
+  end
+
+  -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
+  if device == talkDevice then
+    hardwareDevice:setVolume(20)
   end
 end
 
