@@ -1,5 +1,7 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
 local homeSSID = 'woland'
+local talkDevice = 'Microsoft LifeChat LX-3000'
+local musicDevice = 'ODAC'
 
 -- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
@@ -87,14 +89,37 @@ hs.battery.watcher.new(function()
   end
 end):start()
 
+-- Configure audio output device, unless it doesn't exist - then notify
+function setAudioOutput(device)
+  hardwareDevice = hs.audiodevice.findOutputByName(device)
+
+  if hardwareDevice then
+    hardwareDevice:setDefaultOutputDevice()
+  else
+    hs.notify.new({
+      title = 'Audio Alert',
+      informativeText = device .. ' is missing!',
+    }):send()
+  end
+end
+
 -- Misc bindings
-hs.hotkey.bind(modHyper, '1', function() hs.application.launchOrFocus('Spotify') end)
-hs.hotkey.bind(modHyper, '2', function() hs.application.launchOrFocus('Vox') end)
+hs.hotkey.bind(modHyper, '1', function()
+  setAudioOutput(musicDevice)
+  hs.application.launchOrFocus('Spotify')
+end)
+hs.hotkey.bind(modHyper, '2', function()
+  setAudioOutput(musicDevice)
+  hs.application.launchOrFocus('Vox')
+end)
 hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Safari') end)
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'h', function() os.execute('open ~') end)
-hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
+hs.hotkey.bind(modHyper, 'm', function()
+  setAudioOutput(talkDevice)
+  hs.application.launchOrFocus('Mumble')
+end)
 hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
 hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
 hs.hotkey.bind(modHyper, 'p', function() hs.spotify.displayCurrentTrack() end)
