@@ -1,6 +1,7 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
 local homeSSID = 'woland'
 
+-- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
 
 -- Reload configuration on changes
@@ -93,10 +94,10 @@ hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Safari') 
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'h', function() os.execute('open ~') end)
-hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('iTerm_nightly') end)
 hs.hotkey.bind(modHyper, 'm', function() hs.application.launchOrFocus('Mumble') end)
 hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
 hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
 hs.hotkey.bind(modHyper, 'p', function() hs.spotify.displayCurrentTrack() end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') end)
+hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
