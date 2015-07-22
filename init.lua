@@ -104,6 +104,7 @@ function setAudioOutput(device)
 
   if hardwareDevice then
     hardwareDevice:setDefaultOutputDevice()
+    sendNotification('Audio Output', 'Switched to ' .. device)
 
     -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
     if device == talkDevice then
