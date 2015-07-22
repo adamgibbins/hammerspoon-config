@@ -13,6 +13,14 @@ local screenInternal = 'Color LCD'
 -- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
 
+-- Util function to send notifications, with the standard boilerplate
+function sendNotification(title, description)
+  hs.notify.new({
+    title=title,
+    informativeText=description
+  }):send():release()
+end
+
 -- Reload configuration on changes
 hs.pathwatcher.new(hs.configdir, function(files)
   for _,file in pairs(files) do
@@ -22,10 +30,7 @@ hs.pathwatcher.new(hs.configdir, function(files)
   end
 end):start()
 
-hs.notify.new({
-  title='Hammerspoon',
-  informativeText='Config reloaded'
-}):send():release()
+sendNotification('Hammerspoon', 'Config reloaded')
 
 -- Mute sounds on suspend
 hs.caffeinate.watcher.new(function()
@@ -80,11 +85,7 @@ hs.battery.watcher.new(function()
   powerSource = hs.battery.powerSource()
 
   if powerSource ~= powerSourcePrevious then
-    hs.notify.new({
-      title = 'Power Source',
-      informativeText = powerSource
-    }):send():release()
-
+    sendNotification('Power Source', powerSource)
     powerSourcePrevious = powerSource
   end
 
@@ -92,11 +93,7 @@ hs.battery.watcher.new(function()
   batteryPercentage = tonumber(hs.battery.percentage())
 
   if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
-    hs.notify.new({
-      title = 'Battery Status',
-      informativeText = batteryPercentage .. '% battery remaining!',
-    }):send():release()
-
+    sendNotification('Battery Status', batteryPercentage .. '% battery remaining!')
     batteryPercentagePrevious = batteryPercentage
   end
 end):start()
@@ -113,10 +110,7 @@ function setAudioOutput(device)
       hardwareDevice:setVolume(20)
     end
   else
-    hs.notify.new({
-      title = 'Audio Alert',
-      informativeText = device .. ' is missing!',
-    }):send():release()
+    sendNotification('Audio Alert', device .. ' is missing!')
   end
 end
 
