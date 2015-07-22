@@ -115,6 +115,17 @@ function setAudioOutput(device)
   end
 end
 
+-- Toggle between the two audio devices
+function toggleAudio()
+  currentDevice = hs.audiodevice.defaultOutputDevice()
+
+  if currentDevice:name() == talkDevice then
+    setAudioOutput(musicDevice)
+  else
+    setAudioOutput(talkDevice)
+  end
+end
+
 -- Misc bindings
 hs.hotkey.bind(modHyper, '1', function()
   setAudioOutput(musicDevice)
@@ -138,6 +149,7 @@ end)
 hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
 hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
 hs.hotkey.bind(modHyper, 'p', function() hs.spotify.displayCurrentTrack() end)
+hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
