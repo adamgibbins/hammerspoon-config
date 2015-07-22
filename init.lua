@@ -30,8 +30,6 @@ hs.pathwatcher.new(hs.configdir, function(files)
   end
 end):start()
 
-sendNotification('Hammerspoon', 'Config reloaded')
-
 -- Mute sounds on suspend
 hs.caffeinate.watcher.new(function()
   if hs.caffeinate.watcher.systemWillSleep then
@@ -61,7 +59,7 @@ if caffeine then
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
 
-hs.wifi.watcher.new(function()
+function wifiHandler()
   -- Turn Caffeine off when leaving home network
   if hs.wifi.currentNetwork() == homeSSID then
     hs.caffeinate.set('displayIdle', true)
@@ -75,12 +73,13 @@ hs.wifi.watcher.new(function()
   if hs.wifi.currentNetwork() == workSSID and hs.battery.isCharging() then
     hs.brightness.set(100)
   end
-end):start()
+end
+hs.wifi.watcher.new(wifiHandler):start()
 
 powerSourcePrevious = nil
 batteryPercentagePrevious = nil
 
-hs.battery.watcher.new(function()
+function batteryHandler()
   -- Notify on power source state changes
   powerSource = hs.battery.powerSource()
 
@@ -96,7 +95,8 @@ hs.battery.watcher.new(function()
     sendNotification('Battery Status', batteryPercentage .. '% battery remaining!')
     batteryPercentagePrevious = batteryPercentage
   end
-end):start()
+end
+hs.battery.watcher.new(batteryHandler):start()
 
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
@@ -153,3 +153,8 @@ hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
+
+-- We just booted - call all the handlers to get things in a sane state
+batteryHandler()
+wifiHandler()
+sendNotification('Hammerspoon', 'Config reloaded')
