@@ -76,9 +76,6 @@ function wifiHandler()
 end
 hs.wifi.watcher.new(wifiHandler):start()
 
-powerSourcePrevious = nil
-batteryPercentagePrevious = nil
-
 function batteryHandler()
   -- Notify on power source state changes
   powerSource = hs.battery.powerSource()
