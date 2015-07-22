@@ -30,9 +30,9 @@ hs.pathwatcher.new(hs.configdir, function(files)
   end
 end):start()
 
--- Mute sounds on suspend
 hs.caffeinate.watcher.new(function()
-  if hs.caffeinate.watcher.systemWillSleep then
+  -- Mute sounds on suspend, or if shutting down - to stop the startup chime
+  if hs.caffeinate.watcher.systemWillSleep or hs.caffeine.watcher.systemWillPowerOff then
     hs.audiodevice.defaultOutputDevice():setVolume(0)
   end
 end):start()
@@ -67,6 +67,7 @@ function wifiHandler()
     hs.caffeinate.set('displayIdle', false)
   end
 
+  -- Put the caffeine icon in the correct state, as we just modified it without clicking
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 
   -- Set brightness to max when at work and plugged in
