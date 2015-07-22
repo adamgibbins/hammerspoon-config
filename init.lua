@@ -1,8 +1,11 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
+
 local homeSSID = 'woland'
 local workSSID = 'timgroup_corp'
+
 local talkDevice = 'Microsoft LifeChat LX-3000'
 local musicDevice = 'ODAC'
+
 local screenLeft = ''
 local screenMiddle = ''
 local screenInternal = 'Color LCD'
@@ -22,7 +25,7 @@ end):start()
 hs.notify.new({
   title='Hammerspoon',
   informativeText='Config reloaded'
-}):send()
+}):send():release()
 
 -- Mute sounds on suspend
 hs.caffeinate.watcher.new(function()
@@ -80,7 +83,7 @@ hs.battery.watcher.new(function()
     hs.notify.new({
       title = 'Power Source',
       informativeText = powerSource
-    }):send()
+    }):send():release()
 
     powerSourcePrevious = powerSource
   end
@@ -92,7 +95,7 @@ hs.battery.watcher.new(function()
     hs.notify.new({
       title = 'Battery Status',
       informativeText = batteryPercentage .. '% battery remaining!',
-    }):send()
+    }):send():release()
 
     batteryPercentagePrevious = batteryPercentage
   end
@@ -113,7 +116,7 @@ function setAudioOutput(device)
     hs.notify.new({
       title = 'Audio Alert',
       informativeText = device .. ' is missing!',
-    }):send()
+    }):send():release()
   end
 end
 
