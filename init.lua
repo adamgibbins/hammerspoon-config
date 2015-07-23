@@ -106,7 +106,7 @@ function setAudioOutput(device)
 
     -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
     if device == talkDevice then
-      hardwareDevice:setVolume(20)
+      hardwareDevice:setVolume(40)
     end
   else
     sendNotification('Audio Alert', device .. ' is missing!')
