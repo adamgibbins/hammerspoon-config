@@ -59,9 +59,12 @@ if caffeine then
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
 
+previousSSID = hs.wifi.currentNetwork()
 function wifiHandler()
+  currentSSID = hs.wifi.currentNetwork()
+
   -- Turn Caffeine off when leaving home network
-  if hs.wifi.currentNetwork() == homeSSID then
+  if currentSSID == homeSSID then
     hs.caffeinate.set('displayIdle', true)
   else
     hs.caffeinate.set('displayIdle', false)
@@ -71,9 +74,22 @@ function wifiHandler()
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 
   -- Set brightness to max when at work and plugged in
-  if hs.wifi.currentNetwork() == workSSID and hs.battery.isCharging() then
+  if currentSSID == workSSID and hs.battery.isCharging() then
     hs.brightness.set(100)
   end
+
+  -- Do things when I get to work
+  if currentSSID == workSSID then
+    hs.application.launchOrFocus('Monitoring')
+    hs.application.launchOrFocus('Google Chrome')
+  end
+
+  -- Do things when I've left work
+  if currentSSID ~= workSSID and previousSSID == workSSID then
+    -- XXX Do things, not sure what yet
+  end
+
+  previousSSID = currentSSID
 end
 hs.wifi.watcher.new(wifiHandler):start()
 
