@@ -6,9 +6,9 @@ local workSSID = 'timgroup_corp'
 local talkDevice = 'Microsoft LifeChat LX-3000'
 local musicDevice = 'ODAC'
 
-local screenLeft = ''
-local screenMiddle = ''
-local screenInternal = 'Color LCD'
+local screenLeft = '1007310081'
+local screenMiddle = '1007310146'
+local screenInternal = '69732928'
 
 -- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
