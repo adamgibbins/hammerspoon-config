@@ -10,7 +10,7 @@ local screenLeft = '1007310081'
 local screenMiddle = '1007310146'
 local screenInternal = '69732928'
 
-hs.grid.setGrid('5x3')
+hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
 -- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
