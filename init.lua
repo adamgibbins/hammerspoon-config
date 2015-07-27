@@ -117,14 +117,17 @@ hs.battery.watcher.new(batteryHandler):start()
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
   hardwareDevice = hs.audiodevice.findOutputByName(device)
+  currentDevice = hs.audiodevice.defaultOutputDevice()
 
   if hardwareDevice then
-    hardwareDevice:setDefaultOutputDevice()
-    sendNotification('Audio Output', 'Switched to ' .. device)
+    if currentDevice ~= hardwareDevice then
+      hardwareDevice:setDefaultOutputDevice()
+      sendNotification('Audio Output', 'Switched to ' .. device)
 
-    -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
-    if device == talkDevice then
-      hardwareDevice:setVolume(40)
+      -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
+      if device == talkDevice then
+        hardwareDevice:setVolume(40)
+      end
     end
   else
     sendNotification('Audio Alert', device .. ' is missing!')
