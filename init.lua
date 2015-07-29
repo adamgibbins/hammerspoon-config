@@ -17,10 +17,12 @@ hs.window.animationDuration = 0
 
 -- Util function to send notifications, with the standard boilerplate
 function sendNotification(title, description)
-  hs.notify.new({
-    title=title,
-    informativeText=description
-  }):send():release()
+  -- Confirming notify is not hte cause of a bug by temp swapping out for alerts
+  -- hs.notify.new({
+  --   title=title,
+  --   informativeText=description
+  -- }):send():release()
+  hs.alert(title .. description)
 end
 
 -- Reload configuration on changes
