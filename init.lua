@@ -161,7 +161,7 @@ hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Ch
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'h', function() os.execute('open ~') end)
 hs.hotkey.bind(modHyper, 'r', function()
-  os.execute('/Applications/Microsoft\\ Remote\\ Desktop.app/Contents/MacOS/Microsoft\\ Remote\\ Desktop ~/doc/misc/rds.rdp')
+  os.execute('open -a /Applications/Microsoft\\ Remote\\ Desktop.app/Contents/MacOS/Microsoft\\ Remote\\ Desktop ~/doc/misc/rds.rdp')
 end)
 hs.hotkey.bind(modHyper, 'm', function()
   setAudioOutput(talkDevice)
