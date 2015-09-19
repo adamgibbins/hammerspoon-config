@@ -82,7 +82,8 @@ function wifiHandler()
 
   -- Do things when I get to work
   if currentSSID == workSSID then
-    hs.application.launchOrFocus('Monitoring')
+    hs.application.launchOrFocus('Nagios')
+    hs.application.launchOrFocus('cieye')
     hs.application.launchOrFocus('Google Chrome')
   end
 
