@@ -173,6 +173,7 @@ hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus
 hs.hotkey.bind(modHyper, 'p', function() hs.spotify.displayCurrentTrack() end)
 hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
 hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') end)
+hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePattern('project_*'):focus() end)
 hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
