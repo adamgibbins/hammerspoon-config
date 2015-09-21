@@ -150,15 +150,14 @@ function toggleAudio()
   end
 end
 
+function openMusicApplication(name)
+  setAudioOutput(musicDevice)
+  hs.application.launchOrFocus(name)
+end
+
 -- Misc bindings
-hs.hotkey.bind(modHyper, '1', function()
-  setAudioOutput(musicDevice)
-  hs.application.launchOrFocus('Spotify')
-end)
-hs.hotkey.bind(modHyper, '2', function()
-  setAudioOutput(musicDevice)
-  hs.application.launchOrFocus('Vox')
-end)
+hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
+hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
 hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Safari') end)
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
