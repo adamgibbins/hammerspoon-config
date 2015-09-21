@@ -89,7 +89,11 @@ function wifiHandler()
 
   -- Do things when I've left work
   if currentSSID ~= workSSID and previousSSID == workSSID then
-    -- XXX Do things, not sure what yet
+    hs.application.get('Nagios'):kill()
+    hs.application.get('cieye'):kill()
+    hs.application.get('Google Chrome'):kill()
+    hs.application.get('Mumble'):kill()
+    hs.application.get('Microsoft Remote Desktop'):kill()
   end
 
   previousSSID = currentSSID
