@@ -56,6 +56,13 @@ function caffeineClicked()
   setCaffeineDisplay(hs.caffeinate.toggle('displayIdle'))
 end
 
+function killIfApplicationRunning(application)
+  app = hs.application.get(application)
+  if app then
+    app:kill()
+  end
+end
+
 if caffeine then
   caffeine:setClickCallback(caffeineClicked)
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
@@ -89,11 +96,11 @@ function wifiHandler()
 
   -- Do things when I've left work
   if currentSSID ~= workSSID and previousSSID == workSSID then
-    hs.application.get('Nagios'):kill()
-    hs.application.get('cieye'):kill()
-    hs.application.get('Google Chrome'):kill()
-    hs.application.get('Mumble'):kill()
-    hs.application.get('Microsoft Remote Desktop'):kill()
+    killIfApplicationRunning('Nagios')
+    killIfApplicationRunning('cieye')
+    killIfApplicationRunning('Google Chrome')
+    killIfApplicationRunning('Mumble')
+    killIfApplicationRunning('Microsoft Remote Desktop')
   end
 
   previousSSID = currentSSID
