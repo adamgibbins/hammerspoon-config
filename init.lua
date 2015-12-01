@@ -179,7 +179,7 @@ hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') e
 hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePattern('project_*'):focus() end)
 hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
-hs.hotkey.bind(modHyper, 'space', function() hs.caffeinate.startScreensaver() end)
+hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.caffeinate.startScreensaver() end) end)
 
 -- We just booted - call all the handlers to get things in a sane state
 batteryHandler()
