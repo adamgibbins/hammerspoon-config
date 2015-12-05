@@ -126,6 +126,19 @@ function batteryHandler()
 end
 hs.battery.watcher.new(batteryHandler):start()
 
+function usbHandler(data)
+  if data['productName'] == 'ScanSnap S1100' then
+    event = data['eventType']
+
+    if event == 'added' then
+      hs.application.launchOrFocus('ScanSnap Manager')
+    elseif event == 'removed' then
+      hs.appfinder.appFromName('ScanSnap Manager'):kill()
+    end
+  end
+end
+hs.usb.watcher.new(usbHandler):start()
+
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
   hardwareDevice = hs.audiodevice.findOutputByName(device)
