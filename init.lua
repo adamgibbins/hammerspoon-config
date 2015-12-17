@@ -175,7 +175,20 @@ function openMusicApplication(name)
   hs.application.launchOrFocus(name)
 end
 
+function toggleWifi()
+  wifiIsActive = hs.execute('/sbin/ifconfig | /usr/local/bin/pcregrep -M -o "^[^\t:]+:([^\n]|\n\t)*status: active" | /usr/bin/grep "^en0:"')
+  if wifiIsActive == '' then
+    hs.execute('networksetup -setairportpower en0 on')
+    sendNotification('Wifi On', 'Wifi is now on')
+  else
+    hs.execute('networksetup -setairportpower en0 off')
+    sendNotification('Wifi Off', 'Wifi is now off')
+  end
+  wifiIsActive = nil
+end
+
 -- Misc bindings
+hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
 hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Google Chrome Canary') end)
