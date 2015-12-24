@@ -20,7 +20,7 @@ function sendNotification(title, description)
   hs.notify.new({
     title=title,
     informativeText=description
-  }):send():release()
+  }):send()
 end
 
 -- Reload configuration on changes
