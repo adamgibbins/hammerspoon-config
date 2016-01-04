@@ -6,9 +6,9 @@ local workSSID = 'timgroup_corp'
 local talkDevice = 'Microsoft LifeChat LX-3000'
 local musicDevice = 'ODAC'
 
-local screenLeft = '1007310081'
-local screenMiddle = '1007310146'
-local screenInternal = '69732928'
+local workScreenMiddle = 1007310081
+local workScreenLeft = 1007310146
+local workScreenInternal = 69732928
 
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
