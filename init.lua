@@ -68,7 +68,6 @@ if caffeine then
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
 
-previousSSID = hs.wifi.currentNetwork()
 function wifiHandler()
   currentSSID = hs.wifi.currentNetwork()
 
@@ -81,29 +80,6 @@ function wifiHandler()
 
   -- Put the caffeine icon in the correct state, as we just modified it without clicking
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
-
-  -- Set brightness to max when at work and plugged in
-  if currentSSID == workSSID and hs.battery.isCharging() then
-    hs.brightness.set(100)
-  end
-
-  -- Do things when I get to work
-  if currentSSID == workSSID then
-    hs.application.launchOrFocus('Nagios')
-    hs.application.launchOrFocus('cieye')
-    hs.application.launchOrFocus('Google Chrome')
-  end
-
-  -- Do things when I've left work
-  if currentSSID ~= workSSID and previousSSID == workSSID then
-    killIfApplicationRunning('Nagios')
-    killIfApplicationRunning('cieye')
-    killIfApplicationRunning('Google Chrome')
-    killIfApplicationRunning('Mumble')
-    killIfApplicationRunning('Microsoft Remote Desktop')
-  end
-
-  previousSSID = currentSSID
 end
 hs.wifi.watcher.new(wifiHandler):start()
 
@@ -138,6 +114,36 @@ function usbHandler(data)
   end
 end
 hs.usb.watcher.new(usbHandler):start()
+
+atWork = nil
+function screenHandler()
+  if hs.screen.find(workScreenMiddle) then
+    atWork = true
+    enterWork()
+  elseif atWork and hs.screen.find(workScreenMiddle) == nil then
+    atWork = false
+    leaveWork()
+  end
+end
+hs.screen.watcher.new(screenHandler):start()
+
+function enterWork()
+  hs.application.launchOrFocus('Nagios')
+  hs.application.launchOrFocus('cieye')
+  hs.application.launchOrFocus('Google Chrome')
+
+  if hs.battery.isCharging() then
+    hs.brightness.set(100)
+  end
+end
+
+function leaveWork()
+  killIfApplicationRunning('Nagios')
+  killIfApplicationRunning('cieye')
+  killIfApplicationRunning('Google Chrome')
+  killIfApplicationRunning('Mumble')
+  killIfApplicationRunning('Microsoft Remote Desktop')
+end
 
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
@@ -217,4 +223,5 @@ hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.c
 -- We just booted - call all the handlers to get things in a sane state
 batteryHandler()
 wifiHandler()
+screenHandler()
 sendNotification('Hammerspoon', 'Config reloaded')
