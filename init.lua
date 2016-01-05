@@ -117,10 +117,10 @@ hs.usb.watcher.new(usbHandler):start()
 
 atWork = nil
 function screenHandler()
-  if hs.screen.find(workScreenMiddle) then
+  if hs.screen.find(workScreenMiddle) and hs.screen.find(workScreenLeft) then
     atWork = true
     enterWork()
-  elseif atWork and hs.screen.find(workScreenMiddle) == nil then
+  elseif atWork and hs.screen.find(workScreenMiddle) == nil and hs.screen.find(workScreenLeft) == nil then
     atWork = false
     leaveWork()
   end
