@@ -87,7 +87,7 @@ function batteryHandler()
   -- Notify on power source state changes
   powerSource = hs.battery.powerSource()
 
-  if powerSource ~= powerSourcePrevious then
+  if powerSource ~= powerSourcePrevious and powerSourcePrevious ~= nil then
     sendNotification('Power Source', powerSource)
     powerSourcePrevious = powerSource
   end
