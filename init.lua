@@ -8,7 +8,7 @@ local musicDevice = 'ODAC'
 
 local workScreenMiddle = 1007310081
 local workScreenLeft = 1007310146
-local workScreenInternal = 69732928
+local screenInternal = 69732928
 
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
