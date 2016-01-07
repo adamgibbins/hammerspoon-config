@@ -57,7 +57,7 @@ function caffeineClicked()
 end
 
 function killIfApplicationRunning(application)
-  app = hs.application.get(application)
+  local app = hs.application.get(application)
   if app then
     app:kill()
   end
@@ -69,7 +69,7 @@ if caffeine then
 end
 
 function wifiHandler()
-  currentSSID = hs.wifi.currentNetwork()
+  local currentSSID = hs.wifi.currentNetwork()
 
   -- Turn Caffeine off when leaving home network
   if currentSSID == homeSSID then
@@ -85,7 +85,7 @@ hs.wifi.watcher.new(wifiHandler):start()
 
 function batteryHandler()
   -- Notify on power source state changes
-  powerSource = hs.battery.powerSource()
+  local powerSource = hs.battery.powerSource()
 
   if powerSource ~= powerSourcePrevious and powerSourcePrevious ~= nil then
     sendNotification('Power Source', powerSource)
@@ -93,7 +93,7 @@ function batteryHandler()
   end
 
   -- Notify when battery is low
-  batteryPercentage = tonumber(hs.battery.percentage())
+  local batteryPercentage = tonumber(hs.battery.percentage())
 
   if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
     sendNotification('Battery Status', batteryPercentage .. '% battery remaining!')
@@ -104,7 +104,7 @@ hs.battery.watcher.new(batteryHandler):start()
 
 function usbHandler(data)
   if data['productName'] == 'ScanSnap S1100' then
-    event = data['eventType']
+    local event = data['eventType']
 
     if event == 'added' then
       hs.application.launchOrFocus('ScanSnap Manager')
@@ -138,17 +138,19 @@ function enterWork()
 end
 
 function leaveWork()
+  print 'Leaving work'
   killIfApplicationRunning('Nagios')
   killIfApplicationRunning('cieye')
-  killIfApplicationRunning('Google Chrome')
+--  killIfApplicationRunning('Google Chrome')
   killIfApplicationRunning('Mumble')
   killIfApplicationRunning('Microsoft Remote Desktop')
+  hs.layout.apply(laptopLayout)
 end
 
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
-  hardwareDevice = hs.audiodevice.findOutputByName(device)
-  currentDevice = hs.audiodevice.defaultOutputDevice()
+  local hardwareDevice = hs.audiodevice.findOutputByName(device)
+  local currentDevice = hs.audiodevice.defaultOutputDevice()
 
   if hardwareDevice then
     if currentDevice ~= hardwareDevice then
@@ -166,7 +168,7 @@ function setAudioOutput(device)
 end
 
 -- Toggle between the two audio devices
-function toggleAudio()
+local function toggleAudio()
   currentDevice = hs.audiodevice.defaultOutputDevice()
 
   if currentDevice:name() == talkDevice then
@@ -182,7 +184,7 @@ function openMusicApplication(name)
 end
 
 function toggleWifi()
-  wifiIsActive = hs.execute('/sbin/ifconfig | /usr/local/bin/pcregrep -M -o "^[^\t:]+:([^\n]|\n\t)*status: active" | /usr/bin/grep "^en0:"')
+  local wifiIsActive = hs.execute('/sbin/ifconfig | /usr/local/bin/pcregrep -M -o "^[^\t:]+:([^\n]|\n\t)*status: active" | /usr/bin/grep "^en0:"')
   if wifiIsActive == '' then
     hs.execute('networksetup -setairportpower en0 on')
     sendNotification('Wifi On', 'Wifi is now on')
@@ -190,7 +192,7 @@ function toggleWifi()
     hs.execute('networksetup -setairportpower en0 off')
     sendNotification('Wifi Off', 'Wifi is now off')
   end
-  wifiIsActive = nil
+  local wifiIsActive = nil
 end
 
 -- Misc bindings
