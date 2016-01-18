@@ -204,7 +204,7 @@ hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Google Ch
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'f', function() hs.application.launchOrFocus('Fastmail') end)
-hs.hotkey.bind(modHyper, 'h', function() os.execute('open ~') end)
+hs.hotkey.bind(modHyper, 'h', function() hs.toggleConsole() end)
 hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('IntelliJ IDEA 14') end)
 hs.hotkey.bind(modHyper, 'r', function()
   os.execute('open -a /Applications/Microsoft\\ Remote\\ Desktop.app/Contents/MacOS/Microsoft\\ Remote\\ Desktop ~/doc/misc/rds.rdp')
