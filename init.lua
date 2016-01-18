@@ -128,6 +128,7 @@ end
 hs.screen.watcher.new(screenHandler):start()
 
 function enterWork()
+  print 'Entering work'
   hs.application.launchOrFocus('Nagios')
   hs.application.launchOrFocus('cieye')
   hs.application.launchOrFocus('Google Chrome')
