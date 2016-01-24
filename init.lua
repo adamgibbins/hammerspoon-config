@@ -39,8 +39,15 @@ end):start()
 
 hs.caffeinate.watcher.new(function(event)
   -- Mute sounds on suspend, or if shutting down - to stop the startup chime
-  if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff or event == hs.caffeinate.watcher.systemDidWake then
+  if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
+    printMessage('Sleeping')
     hs.audiodevice.defaultOutputDevice():setVolume(0)
+    hs.execute('/usr/local/bin/tmux send-keys -t comms C-a d')
+  end
+
+  if event == hs.caffeinate.watcher.systemDidWake then
+    printMessage('Waking')
+    hs.execute('/usr/local/bin/tmux send-keys -t comms "tmux -2u attach -d" Enter')
   end
 end):start()
 
