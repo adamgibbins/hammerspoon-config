@@ -23,6 +23,11 @@ function sendNotification(title, description)
   }):send()
 end
 
+-- Util function to print with timestamp
+function printMessage(message)
+  print(os.date('%x %X') .. ': ' .. message)
+end
+
 -- Reload configuration on changes
 hs.pathwatcher.new(hs.configdir, function(files)
   for _,file in pairs(files) do
@@ -128,7 +133,7 @@ end
 hs.screen.watcher.new(screenHandler):start()
 
 function enterWork()
-  print 'Entering work'
+  printMessage('Entering work')
   hs.application.launchOrFocus('Nagios')
   hs.application.launchOrFocus('cieye')
   hs.application.launchOrFocus('Google Chrome')
@@ -139,7 +144,7 @@ function enterWork()
 end
 
 function leaveWork()
-  print 'Leaving work'
+  printMessage('Leaving work')
   killIfApplicationRunning('Nagios')
   killIfApplicationRunning('cieye')
 --  killIfApplicationRunning('Google Chrome')
