@@ -29,13 +29,14 @@ function printMessage(message)
 end
 
 -- Reload configuration on changes
-hs.pathwatcher.new(hs.configdir, function(files)
+pathWatcher = hs.pathwatcher.new(hs.configdir, function(files)
   for _,file in pairs(files) do
     if file:sub(-4) == '.lua' then
       hs.reload()
     end
   end
-end):start()
+end)
+pathWatcher:start()
 
 function closeComms()
   hs.execute('/usr/local/bin/tmux send-keys -t comms C-a d')
@@ -45,7 +46,7 @@ function openComms()
   hs.execute('/usr/local/bin/tmux send-keys -t comms "tmux -2u attach -d" Enter')
 end
 
-hs.caffeinate.watcher.new(function(event)
+caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
   -- Mute sounds on suspend, or if shutting down - to stop the startup chime
   if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
     printMessage('Sleeping')
@@ -62,7 +63,8 @@ hs.caffeinate.watcher.new(function(event)
     printMessage('Waking')
     openComms()
   end
-end):start()
+end)
+caffeinateWatcher:start()
 
 -- Replicate Caffeine.app - click to toggle auto sleep
 local caffeine = hs.menubar.new()
@@ -106,7 +108,8 @@ function wifiHandler()
   -- Put the caffeine icon in the correct state, as we just modified it without clicking
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
-hs.wifi.watcher.new(wifiHandler):start()
+WifiWatcher = hs.wifi.watcher.new(wifiHandler)
+WifiWatcher:start()
 
 function batteryHandler()
   -- Notify on power source state changes
@@ -125,7 +128,8 @@ function batteryHandler()
     batteryPercentagePrevious = batteryPercentage
   end
 end
-hs.battery.watcher.new(batteryHandler):start()
+batteryWatcher = hs.battery.watcher.new(batteryHandler)
+batteryWatcher:start()
 
 function usbHandler(data)
   if data['productName'] == 'ScanSnap S1100' then
@@ -138,7 +142,8 @@ function usbHandler(data)
     end
   end
 end
-hs.usb.watcher.new(usbHandler):start()
+usbWatcher = hs.usb.watcher.new(usbHandler)
+usbWatcher:start()
 
 atWork = nil
 function screenHandler()
@@ -150,7 +155,8 @@ function screenHandler()
     leaveWork()
   end
 end
-hs.screen.watcher.new(screenHandler):start()
+screenWatcher = hs.screen.watcher.new(screenHandler)
+screenWatcher:start()
 
 function enterWork()
   printMessage('Entering work')
