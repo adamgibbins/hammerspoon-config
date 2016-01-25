@@ -218,10 +218,10 @@ end
 function toggleWifi()
   local wifiIsActive = hs.execute('/sbin/ifconfig | /usr/local/bin/pcregrep -M -o "^[^\t:]+:([^\n]|\n\t)*status: active" | /usr/bin/grep "^en0:"')
   if wifiIsActive == '' then
-    hs.execute('networksetup -setairportpower en0 on')
+    hs.wifi.setPower(true)
     sendNotification('Wifi On', 'Wifi is now on')
   else
-    hs.execute('networksetup -setairportpower en0 off')
+    hs.wifi.setPower(false)
     sendNotification('Wifi Off', 'Wifi is now off')
   end
   local wifiIsActive = nil
