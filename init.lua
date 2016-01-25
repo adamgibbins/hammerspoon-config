@@ -216,15 +216,15 @@ function openMusicApplication(name)
 end
 
 function toggleWifi()
-  local wifiIsActive = hs.execute('/sbin/ifconfig | /usr/local/bin/pcregrep -M -o "^[^\t:]+:([^\n]|\n\t)*status: active" | /usr/bin/grep "^en0:"')
-  if wifiIsActive == '' then
-    hs.wifi.setPower(true)
-    sendNotification('Wifi On', 'Wifi is now on')
-  else
+  local wifiIsPowered = hs.wifi.interfaceDetails('en0')['power']
+  if wifiIsPowered then
     hs.wifi.setPower(false)
-    sendNotification('Wifi Off', 'Wifi is now off')
+    sendNotification('Wifi On', 'Wifi is now off')
+  else
+    hs.wifi.setPower(true)
+    sendNotification('Wifi Off', 'Wifi is now on')
   end
-  local wifiIsActive = nil
+  local wifiIsPowered = nil
 end
 
 -- Misc bindings
