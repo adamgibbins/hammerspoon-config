@@ -38,12 +38,19 @@ pathWatcher = hs.pathwatcher.new(hs.configdir, function(files)
 end)
 pathWatcher:start()
 
+commsClosed = false
 function closeComms()
   hs.execute('/usr/local/bin/tmux send-keys -t comms C-a d')
+  commsClosed = true
+  printMessage('Closed comms')
 end
 
 function openComms()
-  hs.execute('/usr/local/bin/tmux send-keys -t comms "tmux -2u attach -d" Enter')
+  if commsClosed then
+    hs.execute('/usr/local/bin/tmux send-keys -t comms "tmux -2u attach -d" Enter')
+    commsClosed = false
+    printMessage('Opened comms')
+  end
 end
 
 caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
