@@ -10,8 +10,15 @@ local workScreenMiddle = 1007310081
 local workScreenLeft = 1007310146
 local screenInternal = 69732928
 
+local laptopLayout = {
+  {"OmniFocus", nil, hs.screen.find(screenInternal), hs.layout.maximized, nil, nil},
+  {"Terminal", nil, hs.screen.find(screenInternal), hs.layout.maximized, nil, nil},
+  {"Fastmail", nil, hs.screen.find(screenInternal), hs.layout.maximized, nil, nil},
+}
+
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
+
 -- No clue to what this actually is, but I don't like slow things - so turn it off
 hs.window.animationDuration = 0
 
@@ -265,4 +272,5 @@ hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.c
 batteryHandler()
 wifiHandler()
 screenHandler()
+hs.layout.apply(laptopLayout)
 sendNotification('Hammerspoon', 'Config reloaded')
