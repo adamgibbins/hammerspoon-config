@@ -1,4 +1,5 @@
 local modHyper = {'⌘', '⌥', '⌃', '⇧'}
+local altCmd = {'⌘', '⌥',}
 
 local homeSSID = 'woland'
 local workSSID = 'timgroup_corp'
@@ -257,6 +258,7 @@ hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Google Ch
 hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
 hs.hotkey.bind(modHyper, 'f', function() hs.application.launchOrFocus('Fastmail') end)
+hs.hotkey.bind(altCmd,   'f', function() hs.window.focusedWindow():maximize() end)
 hs.hotkey.bind(modHyper, 'h', function() hs.toggleConsole() end)
 hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('IntelliJ IDEA 14') end)
 hs.hotkey.bind(modHyper, 'r', function()
