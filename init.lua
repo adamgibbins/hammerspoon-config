@@ -19,7 +19,7 @@ local laptopLayout = {
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
 
--- No clue to what this actually is, but I don't like slow things - so turn it off
+-- Turn off animations, I don't like slow things
 hs.window.animationDuration = 0
 
 -- Util function to send notifications, with the standard boilerplate
@@ -60,17 +60,25 @@ function openComms()
   end
 end
 
+function pauseMusic()
+  if hs.spotify.isRunning() and hs.spotify.isPlaying() then
+    hs.spotify.pause()
+  end
+end
+
 caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
   -- Mute sounds on suspend, or if shutting down - to stop the startup chime
   if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
     printMessage('Sleeping')
     hs.audiodevice.defaultOutputDevice():setVolume(0)
     closeComms()
+    pauseMusic()
   end
 
   if event == hs.caffeinate.watcher.screensaverDidStart then
     printMessage('Screensaver Started')
     closeComms()
+    pauseMusic()
   end
 
   if event == hs.caffeinate.watcher.systemDidWake or event == hs.caffeinate.watcher.screensaverDidStop then
