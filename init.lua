@@ -1,5 +1,5 @@
-local modHyper = {'⌘', '⌥', '⌃', '⇧'}
-local altCmd = {'⌘', '⌥',}
+local modHyper = {'cmd', 'alt', 'ctrl', 'shift'}
+local altCmd = {'alt', 'cmd'}
 
 local homeSSID = 'woland'
 local workSSID = 'timgroup_corp'
