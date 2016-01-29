@@ -2,7 +2,6 @@ local modHyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local altCmd = {'alt', 'cmd'}
 
 local homeSSID = 'woland'
-local workSSID = 'timgroup_corp'
 
 local workPSU = 12735159
 
@@ -178,7 +177,7 @@ function batteryHandler()
   if hs.battery.psuSerial() == workPSU then
     atWork = true
     enterWork()
-  elseif atWork == true then
+  elseif atWork then
     atWork = false
     leaveWork()
   end
