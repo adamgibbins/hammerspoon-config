@@ -47,6 +47,17 @@ pathWatcher = hs.pathwatcher.new(hs.configdir, function(files)
 end)
 pathWatcher:start()
 
+-- Toggle between an app and the previously focused window
+function toggleApp(app)
+  if hs.window.focusedWindow():application():title() == app then
+    previousFocus:focus()
+  else
+    previousFocus = hs.window.focusedWindow()
+    hs.application.launchOrFocus(app)
+  end
+end
+
+
 function enterWork()
   printMessage('Entering work')
   hs.application.launchOrFocus('Nagios')
@@ -233,7 +244,7 @@ end
 
 function openMusicApplication(name)
   setAudioOutput(musicDevice)
-  hs.application.launchOrFocus(name)
+  toggleApp(name)
 end
 
 function toggleWifi()
@@ -252,25 +263,25 @@ end
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
-hs.hotkey.bind(modHyper, 'a', function() hs.application.launchOrFocus('Google Chrome Canary') end)
-hs.hotkey.bind(modHyper, 'c', function() hs.application.launchOrFocus('Google Chrome') end)
-hs.hotkey.bind(modHyper, 'd', function() hs.application.launchOrFocus('Dash') end)
-hs.hotkey.bind(modHyper, 'f', function() hs.application.launchOrFocus('Fastmail') end)
+hs.hotkey.bind(modHyper, 'a', function() toggleApp('Google Chrome Canary') end)
+hs.hotkey.bind(modHyper, 'c', function() toggleApp('Google Chrome') end)
+hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
+hs.hotkey.bind(modHyper, 'f', function() toggleApp('Fastmail') end)
 hs.hotkey.bind(altCmd,   'f', function() hs.window.focusedWindow():maximize() end)
 hs.hotkey.bind(modHyper, 'h', function() hs.toggleConsole() end)
-hs.hotkey.bind(modHyper, 'i', function() hs.application.launchOrFocus('IntelliJ IDEA 14') end)
+hs.hotkey.bind(modHyper, 'i', function() toggleApp('IntelliJ IDEA 14') end)
 hs.hotkey.bind(modHyper, 'r', function()
   os.execute('open -a /Applications/Microsoft\\ Remote\\ Desktop.app/Contents/MacOS/Microsoft\\ Remote\\ Desktop ~/doc/misc/rds.rdp')
 end)
 hs.hotkey.bind(modHyper, 'm', function()
   setAudioOutput(talkDevice)
-  hs.application.launchOrFocus('Mumble')
+  toggleApp('Mumble')
 end)
-hs.hotkey.bind(modHyper, 'n', function() hs.application.launchOrFocus('nvAlt') end)
-hs.hotkey.bind(modHyper, 'o', function() hs.application.launchOrFocus('OmniFocus') end)
+hs.hotkey.bind(modHyper, 'n', function() toggleApp('nvAlt') end)
+hs.hotkey.bind(modHyper, 'o', function() toggleApp('OmniFocus') end)
 hs.hotkey.bind(modHyper, 'p', function() hs.spotify.displayCurrentTrack() end)
 hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
-hs.hotkey.bind(modHyper, 's', function() hs.application.launchOrFocus('Slack') end)
+hs.hotkey.bind(modHyper, 's', function() toggleApp('Slack') end)
 hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePattern('^project_.*'):focus() end)
 hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
