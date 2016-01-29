@@ -4,6 +4,8 @@ local altCmd = {'alt', 'cmd'}
 local homeSSID = 'woland'
 local workSSID = 'timgroup_corp'
 
+local workPSU = 12735159
+
 local talkDevice = 'Microsoft LifeChat LX-3000'
 local musicDevice = 'ODAC'
 
@@ -45,6 +47,28 @@ pathWatcher = hs.pathwatcher.new(hs.configdir, function(files)
   end
 end)
 pathWatcher:start()
+
+function enterWork()
+  printMessage('Entering work')
+  hs.application.launchOrFocus('Nagios')
+  hs.application.launchOrFocus('cieye')
+  hs.application.launchOrFocus('Google Chrome')
+  -- hs.layout.apply(workLayout)
+
+  if hs.battery.isCharging() then
+    hs.brightness.set(100)
+  end
+end
+
+function leaveWork()
+  printMessage('Leaving work')
+  killIfApplicationRunning('Nagios')
+  killIfApplicationRunning('cieye')
+--  killIfApplicationRunning('Google Chrome')
+  killIfApplicationRunning('Mumble')
+  killIfApplicationRunning('Microsoft Remote Desktop')
+  hs.layout.apply(laptopLayout)
+end
 
 commsClosed = false
 function closeComms()
@@ -150,6 +174,15 @@ function batteryHandler()
     sendNotification('Battery Status', batteryPercentage .. '% battery remaining!')
     batteryPercentagePrevious = batteryPercentage
   end
+
+  if hs.battery.psuSerial() == workPSU then
+    atWork = true
+    enterWork()
+  elseif atWork == true then
+    atWork = false
+    leaveWork()
+  end
+
 end
 batteryWatcher = hs.battery.watcher.new(batteryHandler)
 batteryWatcher:start()
@@ -167,40 +200,6 @@ function usbHandler(data)
 end
 usbWatcher = hs.usb.watcher.new(usbHandler)
 usbWatcher:start()
-
-atWork = nil
-function screenHandler()
-  if hs.screen.find(workScreenMiddle) and hs.screen.find(workScreenLeft) then
-    atWork = true
-    enterWork()
-  elseif atWork and hs.screen.find(workScreenMiddle) == nil and hs.screen.find(workScreenLeft) == nil then
-    atWork = false
-    leaveWork()
-  end
-end
-screenWatcher = hs.screen.watcher.new(screenHandler)
-screenWatcher:start()
-
-function enterWork()
-  printMessage('Entering work')
-  hs.application.launchOrFocus('Nagios')
-  hs.application.launchOrFocus('cieye')
-  hs.application.launchOrFocus('Google Chrome')
-
-  if hs.battery.isCharging() then
-    hs.brightness.set(100)
-  end
-end
-
-function leaveWork()
-  printMessage('Leaving work')
-  killIfApplicationRunning('Nagios')
-  killIfApplicationRunning('cieye')
---  killIfApplicationRunning('Google Chrome')
-  killIfApplicationRunning('Mumble')
-  killIfApplicationRunning('Microsoft Remote Desktop')
-  hs.layout.apply(laptopLayout)
-end
 
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
@@ -281,6 +280,5 @@ hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.c
 -- We just booted - call all the handlers to get things in a sane state
 batteryHandler()
 wifiHandler()
-screenHandler()
 hs.layout.apply(laptopLayout)
 sendNotification('Hammerspoon', 'Config reloaded')
