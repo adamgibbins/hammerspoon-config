@@ -11,5 +11,4 @@ function wifiHandler()
   -- Put the caffeine icon in the correct state, as we just modified it without clicking
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
-WifiWatcher = hs.wifi.watcher.new(wifiHandler)
-WifiWatcher:start()
+wifiWatcher = hs.wifi.watcher.new(wifiHandler):start()

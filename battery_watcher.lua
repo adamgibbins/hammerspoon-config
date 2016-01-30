@@ -22,7 +22,5 @@ function batteryHandler()
     atWork = false
     leaveWork()
   end
-
 end
-batteryWatcher = hs.battery.watcher.new(batteryHandler)
-batteryWatcher:start()
+batteryWatcher = hs.battery.watcher.new(batteryHandler):start()

@@ -9,5 +9,4 @@ function usbHandler(data)
     end
   end
 end
-usbWatcher = hs.usb.watcher.new(usbHandler)
-usbWatcher:start()
+usbWatcher = hs.usb.watcher.new(usbHandler):start()

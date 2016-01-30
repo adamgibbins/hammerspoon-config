@@ -1,4 +1,4 @@
-caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
+function caffeinateHandler(event)
   -- Mute sounds on suspend, or if shutting down - to stop the startup chime
   if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
     printMessage('Sleeping')
@@ -17,5 +17,5 @@ caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
     printMessage('Waking')
     openComms()
   end
-end)
-caffeinateWatcher:start()
+end
+caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateHandler):start()
