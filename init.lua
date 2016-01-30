@@ -24,6 +24,9 @@ hs.grid.setMargins('0x0')
 -- Turn off animations, I don't like slow things
 hs.window.animationDuration = 0
 
+-- Make HS accessible from the command line
+hs.ipc.cliInstall()
+
 -- Util function to send notifications, with the standard boilerplate
 function sendNotification(title, description)
   hs.notify.new({
