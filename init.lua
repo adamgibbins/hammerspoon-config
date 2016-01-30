@@ -104,28 +104,6 @@ function pauseMusic()
   end
 end
 
-caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
-  -- Mute sounds on suspend, or if shutting down - to stop the startup chime
-  if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
-    printMessage('Sleeping')
-    hs.audiodevice.defaultOutputDevice():setVolume(0)
-    closeComms()
-    pauseMusic()
-  end
-
-  if event == hs.caffeinate.watcher.screensaverDidStart then
-    printMessage('Screensaver Started')
-    closeComms()
-    pauseMusic()
-  end
-
-  if event == hs.caffeinate.watcher.systemDidWake or event == hs.caffeinate.watcher.screensaverDidStop then
-    printMessage('Waking')
-    openComms()
-  end
-end)
-caffeinateWatcher:start()
-
 -- Replicate Caffeine.app - click to toggle auto sleep
 local caffeine = hs.menubar.new()
 
@@ -154,65 +132,6 @@ if caffeine then
   caffeine:setClickCallback(caffeineClicked)
   setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
-
-function wifiHandler()
-  local currentSSID = hs.wifi.currentNetwork()
-
-  -- Turn Caffeine off when leaving home network
-  if currentSSID == homeSSID then
-    hs.caffeinate.set('displayIdle', true)
-  else
-    hs.caffeinate.set('displayIdle', false)
-  end
-
-  -- Put the caffeine icon in the correct state, as we just modified it without clicking
-  setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
-end
-WifiWatcher = hs.wifi.watcher.new(wifiHandler)
-WifiWatcher:start()
-
-function batteryHandler()
-  -- Notify on power source state changes
-  local powerSource = hs.battery.powerSource()
-
-  if powerSource ~= powerSourcePrevious and powerSourcePrevious ~= nil then
-    sendNotification('Power Source', powerSource)
-    powerSourcePrevious = powerSource
-  end
-
-  -- Notify when battery is low
-  local batteryPercentage = tonumber(hs.battery.percentage())
-
-  if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
-    sendNotification('Battery Status', batteryPercentage .. '% battery remaining!')
-    batteryPercentagePrevious = batteryPercentage
-  end
-
-  if hs.battery.psuSerial() == workPSU then
-    atWork = true
-    enterWork()
-  elseif atWork then
-    atWork = false
-    leaveWork()
-  end
-
-end
-batteryWatcher = hs.battery.watcher.new(batteryHandler)
-batteryWatcher:start()
-
-function usbHandler(data)
-  if data['productName'] == 'ScanSnap S1100' then
-    local event = data['eventType']
-
-    if event == 'added' then
-      hs.application.launchOrFocus('ScanSnap Manager')
-    elseif event == 'removed' then
-      hs.appfinder.appFromName('ScanSnap Manager'):kill()
-    end
-  end
-end
-usbWatcher = hs.usb.watcher.new(usbHandler)
-usbWatcher:start()
 
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
@@ -289,6 +208,11 @@ hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePatte
 hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.caffeinate.startScreensaver() end) end)
+
+require 'battery_watcher'
+require 'caffeinate_watcher'
+require 'usb_watcher'
+require 'wifi_watcher'
 
 -- We just booted - call all the handlers to get things in a sane state
 batteryHandler()
