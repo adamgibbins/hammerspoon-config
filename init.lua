@@ -16,6 +16,7 @@ local laptopLayout = {
   {"OmniFocus", nil, hs.screen.find(screenInternal), hs.layout.maximized, nil, nil},
   {"Terminal", nil, hs.screen.find(screenInternal), hs.layout.maximized, nil, nil},
   {"Fastmail", nil, hs.screen.find(screenInternal), hs.layout.maximized, nil, nil},
+  {"Tweetbot", nil, hs.screen.find(screenInternal), hs.layout.left50, nil, nil},
 }
 
 hs.grid.setGrid('6x3')
