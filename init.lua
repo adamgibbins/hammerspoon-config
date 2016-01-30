@@ -60,6 +60,12 @@ function toggleApp(app)
   end
 end
 
+function killIfApplicationRunning(application)
+  local app = hs.application.get(application)
+  if app then
+    app:kill()
+  end
+end
 
 function enterWork()
   printMessage('Entering work')
@@ -102,35 +108,6 @@ function pauseMusic()
   if hs.spotify.isRunning() and hs.spotify.isPlaying() then
     hs.spotify.pause()
   end
-end
-
--- Replicate Caffeine.app - click to toggle auto sleep
-local caffeine = hs.menubar.new()
-
-function setCaffeineDisplay(state)
-  -- Icons originally from https://github.com/cmsj/hammerspoon-config
-  local result
-  if state then
-    result = caffeine:setIcon('caffeine-on.pdf')
-  else
-    result = caffeine:setIcon('caffeine-off.pdf')
-  end
-end
-
-function caffeineClicked()
-  setCaffeineDisplay(hs.caffeinate.toggle('displayIdle'))
-end
-
-function killIfApplicationRunning(application)
-  local app = hs.application.get(application)
-  if app then
-    app:kill()
-  end
-end
-
-if caffeine then
-  caffeine:setClickCallback(caffeineClicked)
-  setCaffeineDisplay(hs.caffeinate.get('displayIdle'))
 end
 
 -- Configure audio output device, unless it doesn't exist - then notify
@@ -209,6 +186,7 @@ hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.caffeinate.startScreensaver() end) end)
 
+require 'caffeine'
 require 'battery_watcher'
 require 'caffeinate_watcher'
 require 'usb_watcher'
