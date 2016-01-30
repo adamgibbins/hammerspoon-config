@@ -52,7 +52,7 @@ pathWatcher:start()
 
 -- Toggle between an app and the previously focused window
 function toggleApp(app)
-  if hs.window.focusedWindow():application():title() == app then
+  if hs.window.focusedWindow() and hs.window.focusedWindow():application():title() == app and previousFocus then
     previousFocus:focus()
   else
     previousFocus = hs.window.focusedWindow()
