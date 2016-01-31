@@ -2,7 +2,7 @@ function caffeinateHandler(event)
   -- Mute sounds on suspend, or if shutting down - to stop the startup chime
   if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
     printMessage('Sleeping')
-    hs.audiodevice.defaultOutputDevice():setVolume(0)
+    hs.audiodevice.defaultOutputDevice():setMuted(true)
     closeComms()
     pauseMusic()
   end
