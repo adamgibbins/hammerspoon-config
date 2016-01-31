@@ -13,11 +13,15 @@ local workScreenLeft = 1007310146
 local screenInternal = 69732928
 
 local laptopLayout = {
-  { 'OmniFocus',    nil, hs.screen.find(screenInternal), hs.layout.maximized,   nil, nil },
-  { 'Terminal',     nil, hs.screen.find(screenInternal), hs.layout.maximized,   nil, nil },
-  { 'Fastmail',     nil, hs.screen.find(screenInternal), hs.layout.maximized,   nil, nil },
-  { 'Tweetbot',     nil, hs.screen.find(screenInternal), hs.layout.left50,      nil, nil },
+  { 'OmniFocus',        nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Terminal',         nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Terminal',         'comms',      hs.screen.find(screenInternal), hs.layout.left75,       nil, nil },
+  { 'Fastmail',         nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Tweetbot',         nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
+  { 'Google Chrome',    nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
 }
+
+hs.layout.apply(laptopLayout)
 
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
@@ -196,5 +200,5 @@ require 'wifi_watcher'
 -- We just booted - call all the handlers to get things in a sane state
 batteryHandler()
 wifiHandler()
-hs.layout.apply(laptopLayout)
+
 sendNotification('Hammerspoon', 'Config reloaded')
