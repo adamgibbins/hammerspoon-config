@@ -19,6 +19,7 @@ local laptopLayout = {
   { 'Fastmail',         nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Tweetbot',         nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
   { 'Google Chrome',    nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
+  { 'Dash',             nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
 }
 
 hs.layout.apply(laptopLayout)
