@@ -15,9 +15,9 @@ local screenInternal = 69732928
 local workLayout = {
   { 'cieye',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0,    0.33, 0.33 ), nil, nil },
   { 'nagdash',          nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.33, 0,    0.68, 0.33 ), nil, nil },
+  { 'Terminal',         nil,                hs.screen.find(workScreenMiddle), hs.layout.maximized,                           nil, nil },
   { 'Terminal',         'comms',            hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0.33, 1.0,  0.675), nil, nil },
   { 'Dash',             nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
-  { 'Terminal',         'project_timgroup', hs.screen.find(workScreenMiddle), hs.layout.maximized,                           nil, nil },
   { 'Skype',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
   { 'Tweetbot',         nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
 }
