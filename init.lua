@@ -174,6 +174,7 @@ end
 
 -- Misc bindings
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
+hs.hotkey.bind(modHyper, '0', function() hs.layout.apply(laptopLayout) end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
 hs.hotkey.bind(modHyper, 'a', function() toggleApp('Google Chrome Canary') end)
