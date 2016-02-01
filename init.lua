@@ -13,9 +13,10 @@ local workScreenLeft = 1007310146
 local screenInternal = 69732928
 
 local workLayout = {
-  { 'cieye',            nil,          hs.screen.find(workScreenLeft), hs.geometry.unitrect({0, 0, 0.33, 0.33}),    nil, nil },
-  { 'nagdash',          nil,          hs.screen.find(workScreenLeft), hs.geometry.unitrect({0.33, 0, 0.68, 0.33}), nil, nil },
-  { 'Terminal',         'comms',      hs.screen.find(workScreenLeft), hs.geometry.unitrect({0, 0.33, 1.0, 0.675}), nil, nil },
+  { 'cieye',            nil,          hs.screen.find(workScreenLeft), hs.geometry.unitrect({ 0,    0,    0.33, 0.33  }), nil, nil },
+  { 'nagdash',          nil,          hs.screen.find(workScreenLeft), hs.geometry.unitrect({ 0.33, 0,    0.68, 0.33  }), nil, nil },
+  { 'Terminal',         'comms',      hs.screen.find(workScreenLeft), hs.geometry.unitrect({ 0,    0.33, 1.0,  0.675 }), nil, nil },
+  { 'Dash',             nil,          hs.screen.find(screenInternal), hs.layout.maximized,                               nil, nil },
 }
 
 local laptopLayout = {
