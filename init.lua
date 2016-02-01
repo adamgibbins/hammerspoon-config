@@ -30,6 +30,7 @@ local laptopLayout = {
   { 'Tweetbot',         nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
   { 'Google Chrome',    nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
   { 'Dash',             nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Skype',            nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
 }
 
 hs.grid.setGrid('6x3')
