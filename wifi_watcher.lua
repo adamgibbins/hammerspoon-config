@@ -1,4 +1,5 @@
 function wifiHandler()
+  printMessage('wifiHandler triggered')
   local currentSSID = hs.wifi.currentNetwork()
 
   -- Turn Caffeine off when leaving home network
