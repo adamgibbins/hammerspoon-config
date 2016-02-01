@@ -1,5 +1,4 @@
 function batteryHandler()
-  printMessage('batteryHandler triggered')
   -- Notify on power source state changes
   local powerSource = hs.battery.powerSource()
 
