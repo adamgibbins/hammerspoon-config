@@ -93,7 +93,7 @@ end
 
 function leaveWork()
   printMessage('Leaving work')
-  killIfApplicationRunning('Nagios')
+  killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
 --  killIfApplicationRunning('Google Chrome')
   killIfApplicationRunning('Mumble')
