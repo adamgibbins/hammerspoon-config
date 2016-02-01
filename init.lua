@@ -1,9 +1,9 @@
 local modHyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local altCmd = {'alt', 'cmd'}
 
-local homeSSID = 'woland'
+homeSSID = 'woland'
 
-local workPSU = 12735159
+workPSU = 12735159
 
 local talkDevice = 'Microsoft LifeChat LX-3000'
 local musicDevice = 'ODAC'
