@@ -12,6 +12,12 @@ local workScreenMiddle = 1007310081
 local workScreenLeft = 1007310146
 local screenInternal = 69732928
 
+local workLayout = {
+  { 'cieye',            nil,          hs.screen.find(workScreenLeft), hs.geometry.unitrect({0, 0, 0.33, 0.33}),    nil, nil },
+  { 'nagdash',          nil,          hs.screen.find(workScreenLeft), hs.geometry.unitrect({0.33, 0, 0.68, 0.33}), nil, nil },
+  { 'Terminal',         'comms',      hs.screen.find(workScreenLeft), hs.geometry.unitrect({0, 0.33, 1.0, 0.675}), nil, nil },
+}
+
 local laptopLayout = {
   { 'OmniFocus',        nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Terminal',         nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
@@ -21,8 +27,6 @@ local laptopLayout = {
   { 'Google Chrome',    nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
   { 'Dash',             nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
 }
-
-hs.layout.apply(laptopLayout)
 
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
@@ -75,10 +79,10 @@ end
 
 function enterWork()
   printMessage('Entering work')
-  hs.application.launchOrFocus('Nagios')
+  hs.application.launchOrFocus('nagdash')
   hs.application.launchOrFocus('cieye')
   hs.application.launchOrFocus('Google Chrome')
-  -- hs.layout.apply(workLayout)
+  hs.layout.apply(workLayout)
 
   if hs.battery.isCharging() then
     hs.brightness.set(100)
