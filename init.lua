@@ -152,7 +152,7 @@ end
 
 -- Toggle between the two audio devices
 local function toggleAudio()
-  currentDevice = hs.audiodevice.defaultOutputDevice()
+  local currentDevice = hs.audiodevice.defaultOutputDevice()
 
   if currentDevice:name() == talkDevice then
     setAudioOutput(musicDevice)
