@@ -86,6 +86,7 @@ function killIfApplicationRunning(application)
 end
 
 function enterWork()
+  sendNotification('Location', 'Entering work')
   printMessage('Entering work')
   hs.application.launchOrFocus('nagdash')
   hs.application.launchOrFocus('cieye')
@@ -98,6 +99,7 @@ function enterWork()
 end
 
 function leaveWork()
+  sendNotification('Location', 'Leaving work')
   printMessage('Leaving work')
   killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
