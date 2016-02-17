@@ -128,6 +128,27 @@ function pauseMusic()
   if hs.spotify.isRunning() and hs.spotify.isPlaying() then
     hs.spotify.pause()
   end
+
+-- From https://github.com/cmsj/hammerspoon-config/blob/master/init.lua
+function mouseHighlight()
+    if mouseCircle then
+        mouseCircle:delete()
+        if mouseCircleTimer then
+            mouseCircleTimer:stop()
+        end
+    end
+    mousepoint = hs.mouse.getAbsolutePosition()
+    mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
+    mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
+    mouseCircle:setFill(false)
+    mouseCircle:setStrokeWidth(5)
+    mouseCircle:bringToFront(true)
+    mouseCircle:show(0.5)
+
+    mouseCircleTimer = hs.timer.doAfter(3, function()
+        mouseCircle:hide(0.5)
+        hs.timer.doAfter(0.6, function() mouseCircle:delete() end)
+    end)
 end
 
 -- Configure audio output device, unless it doesn't exist - then notify
@@ -184,6 +205,7 @@ hs.hotkey.bind(modHyper, '0', function() hs.layout.apply(laptopLayout) end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
 hs.hotkey.bind(modHyper, 'a', function() toggleApp('FirefoxDeveloperEdition') end)
+hs.hotkey.bind(modHyper, 'b', function() mouseHighlight() end)
 hs.hotkey.bind(modHyper, 'c', function() toggleApp('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
 hs.hotkey.bind(modHyper, 'f', function() toggleApp('Fastmail') end)
