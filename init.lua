@@ -30,7 +30,7 @@ local laptopLayout = {
   { 'Fastmail',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Tweetbot',                 nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
   { 'Google Chrome',            nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
-  { 'FirefoxDeveloperEdition',  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
+  { 'Firefox',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
   { '1Password 6',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
   { 'Dash',                     nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Skype',                    nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
@@ -204,8 +204,8 @@ hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, '0', function() hs.layout.apply(laptopLayout) end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
-hs.hotkey.bind(modHyper, 'a', function() toggleApp('FirefoxDeveloperEdition') end)
 hs.hotkey.bind(modHyper, 'b', function() mouseHighlight() end)
+hs.hotkey.bind(modHyper, 'a', function() toggleApp('Firefox') end)
 hs.hotkey.bind(modHyper, 'c', function() toggleApp('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
 hs.hotkey.bind(modHyper, 'f', function() toggleApp('Fastmail') end)
