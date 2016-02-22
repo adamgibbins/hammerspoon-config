@@ -128,6 +128,7 @@ function pauseMusic()
   if hs.spotify.isRunning() and hs.spotify.isPlaying() then
     hs.spotify.pause()
   end
+end
 
 -- From https://github.com/cmsj/hammerspoon-config/blob/master/init.lua
 function mouseHighlight()
