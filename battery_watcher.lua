@@ -14,13 +14,5 @@ function batteryHandler()
     sendNotification('Battery Status', batteryPercentage .. '% battery remaining!')
     batteryPercentagePrevious = batteryPercentage
   end
-
-  if hs.battery.psuSerial() == workPSU then
-    atWork = true
-    enterWork()
-  elseif atWork then
-    atWork = false
-    leaveWork()
-  end
 end
 batteryWatcher = hs.battery.watcher.new(batteryHandler):start()

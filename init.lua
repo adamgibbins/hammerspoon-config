@@ -202,9 +202,10 @@ end
 -- Misc bindings
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, ']', function() mouseHighlight() end)
-hs.hotkey.bind(modHyper, '0', function() hs.layout.apply(laptopLayout) end)
+hs.hotkey.bind(modHyper, '0', function() leaveWork() hs.layout.apply(laptopLayout) end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
+hs.hotkey.bind(modHyper, '9', function() enterWork() end)
 hs.hotkey.bind(modHyper, 'a', function() toggleApp('Firefox') end)
 hs.hotkey.bind(modHyper, 'c', function() toggleApp('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
