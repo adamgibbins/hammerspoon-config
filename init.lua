@@ -91,6 +91,7 @@ function enterWork()
   hs.application.launchOrFocus('nagdash')
   hs.application.launchOrFocus('cieye')
   hs.application.launchOrFocus('Google Chrome')
+  os.execute('/usr/local/bin/task context tg')
   hs.layout.apply(workLayout)
 
   if hs.battery.isCharging() then
@@ -106,6 +107,7 @@ function leaveWork()
   killIfApplicationRunning('Google Chrome')
   killIfApplicationRunning('Mumble')
   killIfApplicationRunning('Microsoft Remote Desktop')
+  os.execute('/usr/local/bin/task context personal')
   hs.layout.apply(laptopLayout)
 end
 
