@@ -111,10 +111,8 @@ function leaveWork()
   hs.layout.apply(laptopLayout)
 end
 
-commsClosed = false
 function closeComms()
   hs.execute('/usr/local/bin/tmux send-keys -t comms C-a d')
-  commsClosed = true
   printMessage('Closed comms')
 end
 
