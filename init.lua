@@ -118,14 +118,6 @@ function closeComms()
   printMessage('Closed comms')
 end
 
-function openComms()
-  if commsClosed then
-    hs.execute('/usr/local/bin/tmux send-keys -t comms "tmux -2u attach -d" Enter')
-    commsClosed = false
-    printMessage('Opened comms')
-  end
-end
-
 function pauseMusic()
   if hs.spotify.isRunning() and hs.spotify.isPlaying() then
     hs.spotify.pause()

@@ -13,10 +13,5 @@ function caffeinateHandler(event)
     closeComms()
     pauseMusic()
   end
-
-  if event == hs.caffeinate.watcher.systemDidWake or event == hs.caffeinate.watcher.screensaverDidStop then
-    printMessage('Waking')
-    openComms()
-  end
 end
 caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateHandler):start()
