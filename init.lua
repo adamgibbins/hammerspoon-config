@@ -192,6 +192,17 @@ function toggleWifi()
   local wifiIsPowered = nil
 end
 
+function switchToIde()
+  local IDEs = { 'IntelliJ IDEA', 'RubyMine', 'PhpStorm', 'DataGrip', 'WebStorm' }
+
+  for i, IDE in ipairs(IDEs) do
+    if(hs.application(IDE)) then
+      hs.application.launchOrFocus(IDE)
+      return
+    end
+  end
+end
+
 -- Misc bindings
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, ']', function() mouseHighlight() end)
@@ -205,7 +216,7 @@ hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
 hs.hotkey.bind(modHyper, 'f', function() toggleApp('Fastmail') end)
 hs.hotkey.bind(altCmd,   'f', function() hs.window.focusedWindow():maximize() end)
 hs.hotkey.bind(modHyper, 'h', function() hs.toggleConsole() end)
-hs.hotkey.bind(modHyper, 'i', function() toggleApp('IntelliJ IDEA 14') end)
+hs.hotkey.bind(modHyper, 'i', function() switchToIde() end)
 hs.hotkey.bind(modHyper, 'm', function()
   setAudioOutput(talkDevice)
   toggleApp('Mumble')
