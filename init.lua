@@ -195,12 +195,18 @@ end
 
 function switchToIde()
   local IDEs = { 'IntelliJ IDEA', 'RubyMine', 'PhpStorm', 'DataGrip', 'WebStorm' }
+  local success = false
 
   for i, IDE in ipairs(IDEs) do
     if(hs.application(IDE)) then
       hs.application.launchOrFocus(IDE)
-      return
+      success = true
+      break
     end
+  end
+
+  if not success then
+    sendNotification('IDE Hotkey', 'No IDE found!')
   end
 end
 
