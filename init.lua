@@ -118,7 +118,7 @@ function closeComms()
 end
 
 function pauseMusic()
-  if hs.spotify.isRunning() and hs.spotify.isPlaying() then
+  if hs.spotify.isRunning() then
     hs.spotify.pause()
   end
 end
