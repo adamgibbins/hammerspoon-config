@@ -185,10 +185,10 @@ function toggleWifi()
   local wifiIsPowered = hs.wifi.interfaceDetails('en0')['power']
   if wifiIsPowered then
     hs.wifi.setPower(false)
-    sendNotification('Wifi On', 'Wifi is now off')
+    sendNotification('Wifi Off', 'Wifi is now off')
   else
     hs.wifi.setPower(true)
-    sendNotification('Wifi Off', 'Wifi is now on')
+    sendNotification('Wifi On', 'Wifi is now on')
   end
   local wifiIsPowered = nil
 end
