@@ -14,29 +14,29 @@ local screenInternal = 69732928
 
 local workLayout = {
   { 'cieye',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0,    0.33, 0.33 ), nil, nil },
-  { 'nagdash',          nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.33, 0,    0.68, 0.33 ), nil, nil },
-  { 'Terminal',         nil,                hs.screen.find(workScreenMiddle), hs.layout.maximized,                           nil, nil },
-  { 'Terminal',         'comms',            hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0.33, 1.0,  0.675), nil, nil },
   { 'Dash',             nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
   { 'Google Chrome',    nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
+  { 'nagdash',          nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.33, 0,    0.68, 0.33 ), nil, nil },
   { 'Skype',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
+  { 'Terminal',         'comms',            hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0.33, 1.0,  0.675), nil, nil },
+  { 'Terminal',         nil,                hs.screen.find(workScreenMiddle), hs.layout.maximized,                           nil, nil },
   { 'Tweetbot',         nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
 }
 
 local laptopLayout = {
-  { 'OmniFocus',                nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Terminal',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Terminal',                 'comms',      hs.screen.find(screenInternal), hs.layout.left75,       nil, nil },
-  { 'Fastmail',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Tweetbot',                 nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
-  { 'Google Chrome',            nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
-  { 'Firefox',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
-  { 'Vivaldi',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
-  { 'FoldingText',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
-  { 'nvALT',                    nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
   { '1Password 6',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
   { 'Dash',                     nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Fastmail',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Firefox',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
+  { 'FoldingText',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
+  { 'Google Chrome',            nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
+  { 'nvALT',                    nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
+  { 'OmniFocus',                nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Skype',                    nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
+  { 'Terminal',                 'comms',      hs.screen.find(screenInternal), hs.layout.left75,       nil, nil },
+  { 'Terminal',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
+  { 'Tweetbot',                 nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
+  { 'Vivaldi',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
 }
 
 hs.grid.setGrid('6x3')
