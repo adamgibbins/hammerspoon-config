@@ -32,6 +32,8 @@ local laptopLayout = {
   { 'Google Chrome',            nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
   { 'Firefox',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
   { 'Vivaldi',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
+  { 'FoldingText',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
+  { 'nvALT',                    nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
   { '1Password 6',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
   { 'Dash',                     nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Skype',                    nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
