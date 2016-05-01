@@ -12,6 +12,8 @@ local workScreenMiddle = 1007310081
 local workScreenLeft = 1007310146
 local screenInternal = 69732928
 
+local expose = hs.expose.new()
+
 local workLayout = {
   { 'cieye',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0,    0.33, 0.33 ), nil, nil },
   { 'Dash',             nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
@@ -213,6 +215,7 @@ function switchToIde()
 end
 
 -- Misc bindings
+hs.hotkey.bind(modHyper, '=', function() expose:toggleShow() end)
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, ']', function() mouseHighlight() end)
 hs.hotkey.bind(modHyper, '0', function() leaveWork() hs.layout.apply(laptopLayout) end)
