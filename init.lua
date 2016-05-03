@@ -19,7 +19,7 @@ local workLayout = {
   { 'Dash',             nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
   { 'Google Chrome',    nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
   { 'nagdash',          nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.33, 0,    0.68, 0.33 ), nil, nil },
-  { 'Skype',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
+  { 'Skype Web',        nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
   { 'Terminal',         'comms',            hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0.33, 1.0,  0.675), nil, nil },
   { 'Terminal',         nil,                hs.screen.find(workScreenMiddle), hs.layout.maximized,                           nil, nil },
   { 'Tweetbot',         nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
@@ -34,7 +34,7 @@ local laptopLayout = {
   { 'Google Chrome',            nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
   { 'nvALT',                    nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
   { 'OmniFocus',                nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Skype',                    nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
+  { 'Skype Web',                nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
   { 'Terminal',                 'comms',      hs.screen.find(screenInternal), hs.layout.left75,       nil, nil },
   { 'Terminal',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Tweetbot',                 nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
@@ -241,7 +241,7 @@ hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
 hs.hotkey.bind(modHyper, 'r', function()
   os.execute('open -a /Applications/Microsoft\\ Remote\\ Desktop.app/Contents/MacOS/Microsoft\\ Remote\\ Desktop ~/doc/misc/rds.rdp')
 end)
-hs.hotkey.bind(modHyper, 's', function() toggleApp('Skype') end)
+hs.hotkey.bind(modHyper, 's', function() toggleApp('Skype Web') end)
 hs.hotkey.bind(modHyper, 't', function() toggleApp('Tweetbot') end)
 hs.hotkey.bind({'cmd', 'shift'}, 'v', function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
 hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePattern('^project_.*'):focus() end)
