@@ -169,6 +169,21 @@ function setAudioOutput(device)
   end
 end
 
+-- Configure audio input device, unless it doesn't exist - then notify
+function setAudioInput(device)
+  local hardwareDevice = hs.audiodevice.findInputByName(device)
+  local currentDevice = hs.audiodevice.defaultInputDevice()
+
+  if hardwareDevice then
+    if currentDevice ~= hardwareDevice then
+      hardwareDevice:setDefaultInputDevice()
+      sendNotification('Audio Input', 'Switched to ' .. device)
+    end
+  else
+    sendNotification('Audio Alert', device .. ' is missing!')
+  end
+end
+
 -- Toggle between the two audio devices
 local function toggleAudio()
   local currentDevice = hs.audiodevice.defaultOutputDevice()
@@ -177,6 +192,7 @@ local function toggleAudio()
     setAudioOutput(musicDevice)
   else
     setAudioOutput(talkDevice)
+    setAudioInput(talkDevice)
   end
 end
 
