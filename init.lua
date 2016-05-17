@@ -73,6 +73,12 @@ pathWatcher = hs.pathwatcher.new(hs.configdir, function(files)
 end)
 pathWatcher:start()
 
+function listScreens()
+  for k,v in pairs(hs.screen.allScreens()) do
+    print(k,v)
+  end
+end
+
 -- Toggle between an app and the previously focused window
 function toggleApp(app)
   if hs.window.focusedWindow() and hs.window.focusedWindow():application():title() == app and previousFocus then
@@ -93,6 +99,7 @@ end
 function enterWork()
   sendNotification('Location', 'Entering work')
   printMessage('Entering work')
+  listScreens()
   hs.application.launchOrFocus('nagdash')
   hs.application.launchOrFocus('cieye')
   hs.application.launchOrFocus('Google Chrome')
@@ -107,6 +114,7 @@ end
 function leaveWork()
   sendNotification('Location', 'Leaving work')
   printMessage('Leaving work')
+  listScreens()
   killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
   killIfApplicationRunning('Google Chrome')
