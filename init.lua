@@ -38,7 +38,6 @@ local laptopLayout = {
   { 'Terminal',                 'comms',      hs.screen.find(screenInternal), hs.layout.left75,       nil, nil },
   { 'Terminal',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
   { 'Tweetbot',                 nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
-  { 'Vivaldi',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
 }
 
 hs.grid.setGrid('6x3')
@@ -117,7 +116,6 @@ function leaveWork()
   listScreens()
   killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
-  killIfApplicationRunning('Google Chrome')
   killIfApplicationRunning('Mumble')
   killIfApplicationRunning('Microsoft Remote Desktop')
   os.execute('/usr/local/bin/task context personal')
@@ -247,7 +245,6 @@ hs.hotkey.bind(modHyper, '0', function() leaveWork() hs.layout.apply(laptopLayou
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
 hs.hotkey.bind(modHyper, '9', function() enterWork() end)
-hs.hotkey.bind(modHyper, 'a', function() toggleApp('Vivaldi') end)
 hs.hotkey.bind(modHyper, 'c', function() toggleApp('Google Chrome') end)
 hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
 hs.hotkey.bind(modHyper, 'e', function() toggleApp('Fastmail') end)
