@@ -5,7 +5,7 @@ homeSSID = 'woland'
 
 workPSU = 12735159
 
-local talkDevice = 'Microsoft LifeChat LX_3000'
+talkDevice = 'Microsoft LifeChat LX_3000'
 local musicDevice = 'ODAC'
 
 local workScreenMiddle = 1007310081
@@ -271,9 +271,10 @@ hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
 hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitle('comms'):focus() end)
 hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.caffeinate.startScreensaver() end) end)
 
-require 'caffeine'
+require 'app_watcher'
 require 'battery_watcher'
 require 'caffeinate_watcher'
+require 'caffeine'
 require 'usb_watcher'
 require 'wifi_watcher'
 
