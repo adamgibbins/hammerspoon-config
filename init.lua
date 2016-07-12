@@ -88,10 +88,14 @@ function toggleApp(app)
   end
 end
 
-function killIfApplicationRunning(application)
+function killIfApplicationRunning(application, force)
   local app = hs.application.get(application)
   if app then
-    app:kill()
+    if force then
+      app:kill9()
+    else
+      app:kill()
+    end
   end
 end
 
@@ -117,7 +121,7 @@ function leaveWork()
   killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
   killIfApplicationRunning('Mumble')
-  killIfApplicationRunning('Microsoft Remote Desktop')
+  killIfApplicationRunning('Microsoft Remote Desktop', true)
   os.execute('/usr/local/bin/task context personal')
   hs.layout.apply(laptopLayout)
 end
