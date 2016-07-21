@@ -5,7 +5,7 @@ homeSSID = 'woland'
 
 workPSU = 12735159
 
-talkDevice = 'Microsoft LifeChat LX_3000'
+talkDevice = 'Sennheiser USB headset'
 local musicDevice = 'ODAC'
 
 local workScreenMiddle = 1007310081
