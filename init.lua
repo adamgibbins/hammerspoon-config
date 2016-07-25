@@ -207,6 +207,17 @@ local function toggleAudio()
   end
 end
 
+local function toggleInputMute()
+  local currentDevice = hs.audiodevice.defaultInputDevice()
+ if currentDevice:inputVolume() < 40 then
+   currentDevice:setInputVolume(40)
+   hs.alert('Unmuted', 1)
+ else
+   currentDevice:setInputVolume(0)
+   hs.alert('Muted', 1)
+ end
+end
+
 function openMusicApplication(name)
   setAudioOutput(musicDevice)
   toggleApp(name)
@@ -242,6 +253,7 @@ function switchToIde()
 end
 
 -- Misc bindings
+hs.hotkey.bind(modHyper, '`', function() toggleInputMute() end)
 hs.hotkey.bind(modHyper, '=', function() expose:toggleShow() end)
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, ']', function() mouseHighlight() end)
