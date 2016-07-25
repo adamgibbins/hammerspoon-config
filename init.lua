@@ -1,7 +1,7 @@
 local modHyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local altCmd = {'alt', 'cmd'}
 
-homeSSID = 'woland'
+homeSSID = 'CatFi'
 
 workPSU = 12735159
 
