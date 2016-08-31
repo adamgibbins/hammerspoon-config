@@ -122,6 +122,7 @@ function leaveWork()
   killIfApplicationRunning('cieye')
   killIfApplicationRunning('Mumble')
   killIfApplicationRunning('Microsoft Remote Desktop', true)
+  killIfApplicationRunning('Communicator', true)
   os.execute('/usr/local/bin/task context personal')
   hs.layout.apply(laptopLayout)
 end
