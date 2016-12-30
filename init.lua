@@ -229,7 +229,7 @@ function toggleWifi()
 end
 
 function switchToIde()
-  local IDEs = { 'IntelliJ IDEA', 'RubyMine', 'PhpStorm', 'DataGrip', 'WebStorm' }
+  local IDEs = { 'IntelliJ IDEA', 'RubyMine', 'PhpStorm', 'DataGrip', 'WebStorm', 'PyCharm' }
   local success = false
 
   for i, IDE in ipairs(IDEs) do
