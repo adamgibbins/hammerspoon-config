@@ -99,7 +99,6 @@ function enterWork()
   hs.application.launchOrFocus('nagdash')
   hs.application.launchOrFocus('cieye')
   hs.application.launchOrFocus('Google Chrome')
-  os.execute('/usr/local/bin/task context tg')
   hs.layout.apply(workLayout)
 
   if hs.battery.isCharging() then
@@ -112,10 +111,10 @@ function leaveWork()
   printMessage('Leaving work')
   killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
+  killIfApplicationRunning('cieye_personal')
   killIfApplicationRunning('Mumble')
   killIfApplicationRunning('Microsoft Remote Desktop', true)
   killIfApplicationRunning('Communicator', true)
-  os.execute('/usr/local/bin/task context personal')
   hs.layout.apply(laptopLayout)
 end
 
