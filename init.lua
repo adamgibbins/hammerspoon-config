@@ -129,28 +129,6 @@ function pauseMusic()
   end
 end
 
--- From https://github.com/cmsj/hammerspoon-config/blob/master/init.lua
-function mouseHighlight()
-    if mouseCircle then
-        mouseCircle:delete()
-        if mouseCircleTimer then
-            mouseCircleTimer:stop()
-        end
-    end
-    mousepoint = hs.mouse.getAbsolutePosition()
-    mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
-    mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
-    mouseCircle:setFill(false)
-    mouseCircle:setStrokeWidth(5)
-    mouseCircle:bringToFront(true)
-    mouseCircle:show(0.5)
-
-    mouseCircleTimer = hs.timer.doAfter(3, function()
-        mouseCircle:hide(0.5)
-        hs.timer.doAfter(0.6, function() mouseCircle:delete() end)
-    end)
-end
-
 -- Configure audio output device, unless it doesn't exist - then notify
 function setAudioOutput(device)
   local hardwareDevice = hs.audiodevice.findOutputByName(device)
@@ -248,7 +226,6 @@ end
 hs.hotkey.bind(modHyper, '`', function() toggleInputMute() end)
 hs.hotkey.bind(modHyper, '=', function() expose:toggleShow() end)
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
-hs.hotkey.bind(modHyper, ']', function() mouseHighlight() end)
 hs.hotkey.bind(modHyper, '0', function() leaveWork() hs.layout.apply(laptopLayout) end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
@@ -281,6 +258,8 @@ hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.c
 
 hs.loadSpoon('Caffeine')
 spoon.Caffeine:start()
+hs.loadSpoon('MouseCircle')
+spoon.MouseCircle:bindHotkeys({show={modHyper, ']'}})
 require 'app_watcher'
 require 'battery_watcher'
 require 'caffeinate_watcher'
