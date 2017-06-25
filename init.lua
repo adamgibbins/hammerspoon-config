@@ -6,7 +6,13 @@ homeSSID = 'CatFi'
 workPSU = 12735159
 
 talkDevice = 'Sennheiser USB headset'
-local musicDevice = 'ODAC'
+
+if hs.audiodevice.findOutputByName('aeg-qc35') then
+  musicDevice = 'aeg-qc35'
+elseif hs.audiodevice.findOutputByName('ODAC') then
+  musicDevice = 'ODAC'
+end
+
 
 local workScreenMiddle = 1007310081
 local workScreenLeft = 1007310146
