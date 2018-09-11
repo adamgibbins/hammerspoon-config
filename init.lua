@@ -56,7 +56,7 @@ hs.window.animationDuration = 0
 hs.ipc.cliInstall()
 
 -- Util function to send notifications, with the standard boilerplate
-function sendNotification(title, description, time)
+function notify(title, description, time)
   time = time or 2
   hs.notify.new({
     title=title,
@@ -102,7 +102,7 @@ function killIfApplicationRunning(application, force)
 end
 
 function enterWork()
-  sendNotification('Location', 'Entering work')
+  notify('Location', 'Entering work')
   printMessage('Entering work')
   hs.application.launchOrFocus('nagdash')
   hs.application.launchOrFocus('cieye')
@@ -115,7 +115,7 @@ function enterWork()
 end
 
 function leaveWork()
-  sendNotification('Location', 'Leaving work')
+  notify('Location', 'Leaving work')
   printMessage('Leaving work')
   killIfApplicationRunning('nagdash')
   killIfApplicationRunning('cieye')
@@ -145,7 +145,7 @@ function setAudioOutput(device)
   if hardwareDevice then
     if currentDevice ~= hardwareDevice then
       hardwareDevice:setDefaultOutputDevice()
-      sendNotification('Audio Output', 'Switched to ' .. device)
+      notify('Audio Output', 'Switched to ' .. device)
 
       -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
       if device == talkDevice then
@@ -154,7 +154,7 @@ function setAudioOutput(device)
       end
     end
   else
-    sendNotification('Audio Alert', device .. ' is missing!')
+    notify('Audio Alert', device .. ' is missing!')
   end
 end
 
@@ -166,10 +166,10 @@ function setAudioInput(device)
   if hardwareDevice then
     if currentDevice ~= hardwareDevice then
       hardwareDevice:setDefaultInputDevice()
-      sendNotification('Audio Input', 'Switched to ' .. device)
+      notify('Audio Input', 'Switched to ' .. device)
     end
   else
-    sendNotification('Audio Alert', device .. ' is missing!')
+    notify('Audio Alert', device .. ' is missing!')
   end
 end
 
@@ -205,10 +205,10 @@ function toggleWifi()
   local wifiIsPowered = hs.wifi.interfaceDetails('en0')['power']
   if wifiIsPowered then
     hs.wifi.setPower(false)
-    sendNotification('Wifi Off', 'Wifi is now off')
+    notify('Wifi Off', 'Wifi is now off')
   else
     hs.wifi.setPower(true)
-    sendNotification('Wifi On', 'Wifi is now on')
+    notify('Wifi On', 'Wifi is now on')
   end
   local wifiIsPowered = nil
 end
@@ -226,7 +226,7 @@ function switchToIde()
   end
 
   if not success then
-    sendNotification('IDE Hotkey', 'No IDE found!')
+    notify('IDE Hotkey', 'No IDE found!')
   end
 end
 
@@ -276,4 +276,4 @@ require 'usb_watcher'
 -- We just booted - call all the handlers to get things in a sane state
 batteryHandler()
 
-sendNotification('Hammerspoon', 'Config reloaded')
+notify('Hammerspoon', 'Config reloaded')
