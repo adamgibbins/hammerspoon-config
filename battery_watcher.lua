@@ -10,7 +10,7 @@ function batteryHandler()
   -- Notify when battery is low
   local batteryPercentage = tonumber(hs.battery.percentage())
 
-  if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 15 then
+  if batteryPercentage ~= batteryPercentagePrevious and not hs.battery.isCharging() and batteryPercentage < 8 then
     notify('Battery Status', batteryPercentage .. '% battery remaining!')
     batteryPercentagePrevious = batteryPercentage
   end
