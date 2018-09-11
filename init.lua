@@ -56,10 +56,12 @@ hs.window.animationDuration = 0
 hs.ipc.cliInstall()
 
 -- Util function to send notifications, with the standard boilerplate
-function sendNotification(title, description)
+function sendNotification(title, description, time)
+  time = time or 2
   hs.notify.new({
     title=title,
-    informativeText=description
+    informativeText=description,
+    withdrawAfter=time,
   }):send()
 end
 
