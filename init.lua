@@ -1,10 +1,7 @@
 local modHyper = {'cmd', 'alt', 'ctrl', 'shift'}
 local altCmd = {'alt', 'cmd'}
 
-homeSSID = 'CatFi'
-
 workPSU = 12735159
-
 talkDevice = 'Sennheiser USB headset'
 
 if hs.audiodevice.findOutputByName('aeg-qc35') then
@@ -13,38 +10,7 @@ elseif hs.audiodevice.findOutputByName('ODAC') then
   musicDevice = 'ODAC'
 end
 
-
-local workScreenMiddle = 1007310081
-local workScreenLeft = 1007310146
-local screenInternal = 69732928
-
 local expose = hs.expose.new()
-
-local workLayout = {
-  { 'cieye',            nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0,    0.33, 0.33 ), nil, nil },
-  { 'Dash',             nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
-  { 'Google Chrome',    nil,                hs.screen.find(screenInternal),   hs.layout.maximized,                           nil, nil },
-  { 'nagdash',          nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.33, 0,    0.68, 0.33 ), nil, nil },
-  { 'Skype Web',        nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
-  { 'Terminal',         'comms',            hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0,    0.33, 1.0,  0.675), nil, nil },
-  { 'Terminal',         nil,                hs.screen.find(workScreenMiddle), hs.layout.maximized,                           nil, nil },
-  { 'Tweetbot',         nil,                hs.screen.find(workScreenLeft),   hs.geometry.unitrect(0.43, 0.35, 0.58, 0.6  ), nil, nil },
-}
-
-local laptopLayout = {
-  { '1Password 6',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
-  { 'Dash',                     nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Fastmail',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Firefox',                  nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
-  { 'FoldingText',              nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
-  { 'Google Chrome',            nil,          hs.screen.find(screenInternal), hs.layout.right75,      nil, nil },
-  { 'nvALT',                    nil,          hs.screen.find(screenInternal), hs.layout.right70,      nil, nil },
-  { 'OmniFocus',                nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Skype Web',                nil,          hs.screen.find(screenInternal), hs.layout.left25,       nil, nil },
-  { 'Terminal',                 'comms',      hs.screen.find(screenInternal), hs.layout.left75,       nil, nil },
-  { 'Terminal',                 nil,          hs.screen.find(screenInternal), hs.layout.maximized,    nil, nil },
-  { 'Tweetbot',                 nil,          hs.screen.find(screenInternal), hs.layout.left50,       nil, nil },
-}
 
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
@@ -54,6 +20,14 @@ hs.window.animationDuration = 0
 
 -- Make HS accessible from the command line
 hs.ipc.cliInstall()
+
+hs.autoLaunch(true)
+hs.automaticallyCheckForUpdates(true)
+hs.preferencesDarkMode(true)
+hs.accessibilityState(true)
+hs.dockIcon(false)
+hs.menuIcon(false)
+hs.consoleOnTop(true)
 
 -- Util function to send notifications, with the standard boilerplate
 function notify(title, description, time)
@@ -194,7 +168,6 @@ function toggleWifi()
     hs.wifi.setPower(true)
     notify('Wifi On', 'Wifi is now on')
   end
-  local wifiIsPowered = nil
 end
 
 function switchToIde()
@@ -214,15 +187,55 @@ function switchToIde()
   end
 end
 
--- Misc bindings
+apps = {
+  todo = 'Remember The Milk',
+  terminal = 'Terminal',
+  twitter = 'Tweetbot',
+  browser = 'Google Chrome',
+  browser_secondary = 'Safari',
+}
+
+laptopScreen = hs.screen.find('Color LCD')
+workCenterScreen = hs.screen.find(724847118)
+workRightScreen = hs.screen.find(724850701)
+
+workLayout = {
+  {'Spotify',               nil,                       laptopScreen,      hs.layout.maximized,             nil, nil},
+  {apps.terminal,           nil,                       workCenterScreen,  hs.layout.maximized,             nil, nil},
+  {apps.terminal,           'comms',                   workRightScreen,   {x=0,    y=0.3,  w=1,    h=0.7}, nil, nil},
+  {apps.browser,            nil,                       workRightScreen,   {x=0.2,  y=0.3,  w=0.8,  h=0.7}, nil, nil},
+  {apps.browser_secondary,  nil,                       workRightScreen,   {x=0,    y=0,    w=0.67, h=0.3}, nil, nil},
+  {'Chrome',                'Infrastructure - CI-Eye', workRightScreen,   {x=0.67, y=0,    w=0.33, h=0.2}, nil, nil},
+  {'Chrome',                'adam - CI-Eye',           workRightScreen,   {x=0.67, y=0.2,  w=0.33, h=0.1}, nil, nil},
+  {'Discord',               nil,                       workRightScreen,   nil,                             nil, nil},
+}
+
+laptopLayout = {
+  -- app, window, screen, unit, frame, full-frame
+  {apps.terminal,          nil, laptopScreen, hs.layout.maximized, nil, nil},
+  {'IntelliJ IDEA',        nil, laptopScreen, hs.layout.maximized, nil, nil},
+  {'PyCharm',              nil, laptopScreen, hs.layout.maximized, nil, nil},
+  {apps.browser,           nil, laptopScreen, hs.layout.maximized, nil, nil},
+  {apps.browser_secondary, nil, laptopScreen, hs.layout.maximized, nil, nil},
+  {'Spotify',              nil, laptopScreen, hs.layout.maximized, nil, nil},
+  {'Discord',              nil, laptopScreen, hs.layout.right75,   nil, nil},
+  {apps.twitter,           nil, laptopScreen, hs.layout.right75,   nil, nil},
+  {apps.todo,              nil, laptopScreen, hs.layout.right75,   nil, nil},
+  {'Slack',                nil, laptopScreen, hs.layout.right75,   nil, nil},
+}
+
+for i, name in ipairs({
+  'Discord Helper',
+  'Safari Storage',
+}) do
+  hs.window.filter.ignoreAlways[name] = true
+end
+
 hs.hotkey.bind(modHyper, '`', function() toggleInputMute() end)
 hs.hotkey.bind(modHyper, '=', function() expose:toggleShow() end)
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
-hs.hotkey.bind(modHyper, '0', function() leaveWork() hs.layout.apply(laptopLayout) end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
-hs.hotkey.bind(modHyper, '2', function() openMusicApplication('Vox') end)
-hs.hotkey.bind(modHyper, '9', function() enterWork() end)
-hs.hotkey.bind(modHyper, 'c', function() toggleApp('Google Chrome') end)
+hs.hotkey.bind(modHyper, 'c', function() toggleApp(apps.browser) end)
 hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
 hs.hotkey.bind(modHyper, 'e', function() toggleApp('MailMate') end)
 hs.hotkey.bind(modHyper, 'f', function() toggleApp('FoldingText') end)
@@ -234,14 +247,11 @@ hs.hotkey.bind(modHyper, 'm', function()
   toggleApp('Mumble')
 end)
 hs.hotkey.bind(modHyper, 'n', function() toggleApp('nvAlt') end)
-hs.hotkey.bind(modHyper, 'o', function() toggleApp('2Do') end)
-hs.hotkey.bind(modHyper, 'p', function() toggleApp('1Password 6') end)
+hs.hotkey.bind(modHyper, 'o', function() toggleApp(apps.todo) end)
+hs.hotkey.bind(modHyper, 'p', function() toggleApp('1Password 7') end)
 hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
-hs.hotkey.bind(modHyper, 'r', function()
-  os.execute('open -a /Applications/Microsoft\\ Remote\\ Desktop.app/Contents/MacOS/Microsoft\\ Remote\\ Desktop ~/doc/misc/rds.rdp')
-end)
-hs.hotkey.bind(modHyper, 's', function() toggleApp('Safari') end)
-hs.hotkey.bind(modHyper, 't', function() toggleApp('Tweetbot') end)
+hs.hotkey.bind(modHyper, 's', function() toggleApp(apps.browser_secondary) end)
+hs.hotkey.bind(modHyper, 't', function() toggleApp(apps.twitter) end)
 hs.hotkey.bind({'cmd', 'shift'}, 'v', function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
 hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePattern('^project_.*'):focus() end)
 hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)

@@ -1,10 +1,22 @@
-function batteryHandler()
-  -- Notify on power source state changes
-  local powerSource = hs.battery.powerSource()
+local powerSource = hs.battery.powerSource()
 
-  if powerSource ~= powerSourcePrevious and powerSourcePrevious ~= nil then
-    notify('Power Source', powerSource)
-    powerSourcePrevious = powerSource
+function batteryHandler()
+  local newPowerSource = hs.battery.powerSource()
+
+  if newPowerSource ~= powerSource then
+    notify('Power Source', newPowerSource)
+    powerSource = newPowerSource
+  end
+
+  if hs.battery.percentage() < 100 then
+    isCharged = false
+  end
+
+  if hs.battery.isCharged() ~= isCharged
+    and hs.battery.percentage() == 100
+    and newPowerSource == 'AC Power' then
+    notify('Battery', 'Fully charged!', 5)
+    isCharged = true
   end
 
   -- Notify when battery is low
