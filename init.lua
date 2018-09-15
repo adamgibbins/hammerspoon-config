@@ -65,11 +65,6 @@ function notify(title, description, time)
   }):send()
 end
 
--- Util function to print with timestamp
-function printMessage(message)
-  print(os.date('%x %X') .. ': ' .. message)
-end
-
 -- Reload configuration on changes
 pathWatcher = hs.pathwatcher.new(hs.configdir, function(files)
   for _,file in pairs(files) do
@@ -103,11 +98,7 @@ end
 
 function enterWork()
   notify('Location', 'Entering work')
-  printMessage('Entering work')
-  hs.application.launchOrFocus('nagdash')
-  hs.application.launchOrFocus('cieye')
-  hs.application.launchOrFocus('Google Chrome')
-  hs.layout.apply(workLayout)
+  print('Entering work')
 
   if hs.battery.isCharging() then
     hs.brightness.set(100)
@@ -116,19 +107,12 @@ end
 
 function leaveWork()
   notify('Location', 'Leaving work')
-  printMessage('Leaving work')
-  killIfApplicationRunning('nagdash')
-  killIfApplicationRunning('cieye')
-  killIfApplicationRunning('cieye_personal')
-  killIfApplicationRunning('Mumble')
-  killIfApplicationRunning('Microsoft Remote Desktop', true)
-  killIfApplicationRunning('Communicator', true)
-  hs.layout.apply(laptopLayout)
+  print('Leaving work')
 end
 
 function closeComms()
   hs.execute('/usr/local/bin/tmux send-keys -t comms C-a d')
-  printMessage('Closed comms')
+  print('Closed comms')
 end
 
 function pauseMusic()
