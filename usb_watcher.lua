@@ -1,5 +1,4 @@
 function usbHandler(data)
-  print('usbHandler triggered')
   if data['productName'] == 'ScanSnap S1100' then
     local event = data['eventType']
 

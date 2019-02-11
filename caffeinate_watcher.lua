@@ -1,5 +1,4 @@
 function caffeinateHandler(event)
-  print('caffeinateWatcher triggered')
   -- Mute sounds on suspend, or if shutting down - to stop the startup chime
   if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
     print('Sleeping')
