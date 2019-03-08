@@ -4,8 +4,8 @@ altCmd = {'alt', 'cmd'}
 workPSU = 12735159
 talkDevice = 'Sennheiser USB headset'
 
-if hs.audiodevice.findOutputByName('aeg-qc35') then
-  musicDevice = 'aeg-qc35'
+if hs.audiodevice.findOutputByName('WH-1000XM3') then
+  musicDevice = 'WH-1000XM3'
 elseif hs.audiodevice.findOutputByName('ODAC') then
   musicDevice = 'ODAC'
 -- elseif hs.audiodevice.findOutputByName('Headphones') then
