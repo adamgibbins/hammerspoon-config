@@ -3,13 +3,41 @@ altCmd = {'alt', 'cmd'}
 
 workPSU = 12735159
 talkDevice = 'Sennheiser USB headset'
+musicDevices = {
+  'WH-1000XM3',
+  'aeg-qc35',
+  'ODAC',
+  'Headphones',
+  'Built-in Output',
+}
 
-if hs.audiodevice.findOutputByName('WH-1000XM3') then
-  musicDevice = 'WH-1000XM3'
-elseif hs.audiodevice.findOutputByName('ODAC') then
-  musicDevice = 'ODAC'
--- elseif hs.audiodevice.findOutputByName('Headphones') then
---   musicDevice = 'Headphones'
+-- Util function to send notifications, with the standard boilerplate
+function notify(title, description, time)
+  time = time or 2
+  hs.notify.new({
+    title=title,
+    informativeText=description,
+    withdrawAfter=time,
+  }):send()
+end
+
+function getMusicDevice()
+  local musicDevice
+
+  for _, device in pairs(musicDevices) do
+    if hs.audiodevice.findOutputByName(device) then
+      musicDevice = device
+      break
+    end
+  end
+
+  if musicDevice then
+    notify('Music Device', 'musicDevice switched to ' .. musicDevice)
+    return musicDevice
+  else
+    notify('Music Device', 'musicDevice not set!')
+    return false
+  end
 end
 
 hs.grid.setGrid('6x3')
@@ -29,16 +57,6 @@ hs.accessibilityState(true)
 hs.dockIcon(false)
 hs.menuIcon(false)
 hs.consoleOnTop(true)
-
--- Util function to send notifications, with the standard boilerplate
-function notify(title, description, time)
-  time = time or 2
-  hs.notify.new({
-    title=title,
-    informativeText=description,
-    withdrawAfter=time,
-  }):send()
-end
 
 -- Toggle between an app and the previously focused window
 function toggleApp(app)
@@ -90,8 +108,6 @@ function setAudioOutput(device)
         setAudioInput(talkDevice)
       end
     end
-  else
-    notify('Audio Alert', device .. ' is missing!')
   end
 end
 
@@ -115,7 +131,7 @@ function toggleAudio()
   local currentDevice = hs.audiodevice.defaultOutputDevice()
 
   if currentDevice:name() == talkDevice then
-    setAudioOutput(musicDevice)
+    setAudioOutput(getMusicDevice())
   else
     setAudioOutput(talkDevice)
     setAudioInput(talkDevice)
@@ -124,18 +140,18 @@ end
 
 function toggleInputMute()
   local currentDevice = hs.audiodevice.defaultInputDevice()
- if currentDevice:inputVolume() < 40 then
-   currentDevice:setInputVolume(40)
-   hs.alert('Unmuted', 1)
- else
-   currentDevice:setInputVolume(0)
-   hs.alert('Muted', 1)
- end
+  if currentDevice:inputVolume() < 40 then
+    currentDevice:setInputVolume(40)
+    hs.alert('Unmuted', 1)
+  else
+    currentDevice:setInputVolume(0)
+    hs.alert('Muted', 1)
+  end
 end
 
 function openMusicApplication(name)
   toggleApp(name)
-  setAudioOutput(musicDevice)
+  setAudioOutput(getMusicDevice())
 end
 
 function toggleWifi()
