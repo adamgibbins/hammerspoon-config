@@ -20,6 +20,7 @@ hs.window.animationDuration = 0
 
 -- Make HS accessible from the command line
 hs.ipc.cliInstall()
+hs.ipc.cliSaveHistory(true)
 
 hs.autoLaunch(true)
 hs.automaticallyCheckForUpdates(true)
