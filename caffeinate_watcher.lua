@@ -3,13 +3,11 @@ function caffeinateHandler(event)
   if event == hs.caffeinate.watcher.systemWillSleep or event == hs.caffeinate.watcher.systemWillPowerOff then
     print('Sleeping')
     hs.audiodevice.defaultOutputDevice():setMuted(true)
-    closeComms()
     pauseMusic()
   end
 
   if event == hs.caffeinate.watcher.screensaverDidStart then
     print('Screensaver Started')
-    closeComms()
     pauseMusic()
   end
 end
