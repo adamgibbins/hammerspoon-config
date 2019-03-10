@@ -21,6 +21,16 @@ function notify(title, description, time)
   }):send()
 end
 
+hs.loadSpoon('SpoonInstall')
+spoon.SpoonInstall:andUse('MouseCircle', {
+  hotkeys = {
+    show = { modHyper, ']' }
+  }
+})
+spoon.SpoonInstall:andUse('Caffeine', {
+  start = true
+})
+
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
 
@@ -191,10 +201,6 @@ hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.c
 -- Display a menubar item to indicate if the Internet is reachable
 reachabilityMenuItem = require("reachabilityMenuItem"):start()
 
-hs.loadSpoon('Caffeine')
-spoon.Caffeine:start()
-hs.loadSpoon('MouseCircle')
-spoon.MouseCircle:bindHotkeys({show={modHyper, ']'}})
 require 'app_watcher'
 require 'battery_watcher'
 require 'caffeinate_watcher'
