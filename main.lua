@@ -32,10 +32,11 @@ function getMusicDevice()
   end
 
   if musicDevice then
-    notify('Music Device', 'musicDevice switched to ' .. musicDevice)
+    notify('Music Device', 'Switched to ' .. musicDevice)
     return musicDevice
   else
-    notify('Music Device', 'musicDevice not set!')
+    notify('Music Device', 'Not found!')
+    print('Failed to find musicDevice')
     return false
   end
 end
@@ -79,11 +80,6 @@ function killIfApplicationRunning(application, force)
       app:kill()
     end
   end
-end
-
-function closeComms()
-  hs.execute('/usr/local/bin/tmux send-keys -t comms C-a d')
-  print('Closed comms')
 end
 
 function pauseMusic()
@@ -235,7 +231,7 @@ function leaveWork()
   hs.layout.apply(laptopLayout)
 end
 
-for i, name in ipairs({
+for _, name in ipairs({
   'Discord Helper',
   'Safari Storage',
 }) do
