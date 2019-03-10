@@ -21,26 +21,6 @@ function notify(title, description, time)
   }):send()
 end
 
-function getMusicDevice()
-  local musicDevice
-
-  for _, device in pairs(musicDevices) do
-    if hs.audiodevice.findOutputByName(device) then
-      musicDevice = device
-      break
-    end
-  end
-
-  if musicDevice then
-    notify('Music Device', 'Switched to ' .. musicDevice)
-    return musicDevice
-  else
-    notify('Music Device', 'Not found!')
-    print('Failed to find musicDevice')
-    return false
-  end
-end
-
 hs.grid.setGrid('6x3')
 hs.grid.setMargins('0x0')
 
@@ -58,6 +38,19 @@ hs.accessibilityState(true)
 hs.dockIcon(false)
 hs.menuIcon(false)
 hs.consoleOnTop(true)
+
+require 'audio'
+
+function pauseMusic()
+  if hs.spotify.isRunning() then
+    hs.spotify.pause()
+  end
+end
+
+function openMusicApplication(name)
+  toggleApp(name)
+  setMusicDevice()
+end
 
 -- Toggle between an app and the previously focused window
 function toggleApp(app)
@@ -80,74 +73,6 @@ function killIfApplicationRunning(application, force)
       app:kill()
     end
   end
-end
-
-function pauseMusic()
-  if hs.spotify.isRunning() then
-    hs.spotify.pause()
-  end
-end
-
--- Configure audio output device, unless it doesn't exist - then notify
-function setAudioOutput(device)
-  local hardwareDevice = hs.audiodevice.findOutputByName(device)
-  local currentDevice = hs.audiodevice.defaultOutputDevice()
-
-  if hardwareDevice then
-    if currentDevice ~= hardwareDevice then
-      hardwareDevice:setDefaultOutputDevice()
-      notify('Audio Output', 'Switched to ' .. device)
-
-      -- talkDevice is replugged often, when plugged in it starts on mute - so turn it up to a reasonable volume
-      if device == talkDevice then
-        hardwareDevice:setVolume(40)
-        setAudioInput(talkDevice)
-      end
-    end
-  end
-end
-
--- Configure audio input device, unless it doesn't exist - then notify
-function setAudioInput(device)
-  local hardwareDevice = hs.audiodevice.findInputByName(device)
-  local currentDevice = hs.audiodevice.defaultInputDevice()
-
-  if hardwareDevice then
-    if currentDevice ~= hardwareDevice then
-      hardwareDevice:setDefaultInputDevice()
-      notify('Audio Input', 'Switched to ' .. device)
-    end
-  else
-    notify('Audio Alert', device .. ' is missing!')
-  end
-end
-
--- Toggle between the two audio devices
-function toggleAudio()
-  local currentDevice = hs.audiodevice.defaultOutputDevice()
-
-  if currentDevice:name() == talkDevice then
-    setAudioOutput(getMusicDevice())
-  else
-    setAudioOutput(talkDevice)
-    setAudioInput(talkDevice)
-  end
-end
-
-function toggleInputMute()
-  local currentDevice = hs.audiodevice.defaultInputDevice()
-  if currentDevice:inputVolume() < 40 then
-    currentDevice:setInputVolume(40)
-    hs.alert('Unmuted', 1)
-  else
-    currentDevice:setInputVolume(0)
-    hs.alert('Muted', 1)
-  end
-end
-
-function openMusicApplication(name)
-  toggleApp(name)
-  setAudioOutput(getMusicDevice())
 end
 
 function toggleWifi()
