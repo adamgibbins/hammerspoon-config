@@ -1,5 +1,5 @@
 function appHandler(appName, eventType, appObject)
-  if appName == 'zoom.us' and eventType == hs.application.watcher.launched then
+  if (appName == 'zoom.us' or appName == 'Hangout Infra') and eventType == hs.application.watcher.launched then
     setAudioOutput(talkDevice)
   end
 end
