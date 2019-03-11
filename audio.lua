@@ -1,3 +1,6 @@
+spoon.SpoonInstall:andUse('MicMute')
+spoon.MicMute:bindHotkeys({ toggle = {modHyper, '`'}}, 0.75)
+
 function setMusicDevice()
   local musicDevice
 
@@ -60,13 +63,3 @@ function toggleAudio()
   end
 end
 
-function toggleInputMute()
-  local currentDevice = hs.audiodevice.defaultInputDevice()
-  if currentDevice:inputVolume() < 40 then
-    currentDevice:setInputVolume(40)
-    hs.alert('Unmuted', 1)
-  else
-    currentDevice:setInputVolume(0)
-    hs.alert('Muted', 1)
-  end
-end

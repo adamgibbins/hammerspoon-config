@@ -173,7 +173,6 @@ for _, name in ipairs({
   hs.window.filter.ignoreAlways[name] = true
 end
 
-hs.hotkey.bind(modHyper, '`', function() toggleInputMute() end)
 hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
 hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
 hs.hotkey.bind(modHyper, 'c', function() toggleApp(apps.browser) end)
