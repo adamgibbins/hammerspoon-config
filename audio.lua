@@ -1,5 +1,6 @@
-spoon.SpoonInstall:andUse('MicMute')
-spoon.MicMute:bindHotkeys({ toggle = {modHyper, '`'}}, 0.75)
+-- Fork of MicMute spoon that turns mute into vol 0 as muting input also results in muting output with my device
+hs.loadSpoon('MicMuteFork')
+spoon.MicMuteFork:bindHotkeys({ toggle = {modHyper, '`'}}, 0.75)
 
 function setMusicDevice()
   local musicDevice
