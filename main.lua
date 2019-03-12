@@ -22,6 +22,7 @@ function notify(title, description, time)
 end
 
 hs.loadSpoon('SpoonInstall')
+spoon.SpoonInstall.use_syncinstall = true
 spoon.SpoonInstall:andUse('MouseCircle', {
   hotkeys = {
     show = { modHyper, ']' }
@@ -55,11 +56,6 @@ function pauseMusic()
   if hs.spotify.isRunning() then
     hs.spotify.pause()
   end
-end
-
-function openMusicApplication(name)
-  toggleApp(name)
-  setMusicDevice()
 end
 
 -- Toggle between an app and the previously focused window
@@ -100,7 +96,7 @@ function switchToIde()
   local IDEs = { 'IntelliJ IDEA', 'RubyMine', 'PhpStorm', 'DataGrip', 'WebStorm', 'PyCharm' }
   local success = false
 
-  for i, IDE in ipairs(IDEs) do
+  for _, IDE in ipairs(IDEs) do
     if(hs.application(IDE)) then
       hs.application.launchOrFocus(IDE)
       success = true
@@ -173,30 +169,40 @@ for _, name in ipairs({
   hs.window.filter.ignoreAlways[name] = true
 end
 
-hs.hotkey.bind(modHyper, '-', function() toggleWifi() end)
-hs.hotkey.bind(modHyper, '1', function() openMusicApplication('Spotify') end)
-hs.hotkey.bind(modHyper, 'c', function() toggleApp(apps.browser) end)
-hs.hotkey.bind(modHyper, 'd', function() toggleApp('Dash') end)
-hs.hotkey.bind(modHyper, 'e', function() toggleApp('MailMate') end)
-hs.hotkey.bind(modHyper, 'f', function() toggleApp('Firefox') end)
-hs.hotkey.bind(altCmd,   'f', function() hs.window.focusedWindow():maximize() end)
-hs.hotkey.bind(modHyper, 'h', function() hs.toggleConsole() end)
-hs.hotkey.bind(modHyper, 'i', function() switchToIde() end)
-hs.hotkey.bind(modHyper, 'm', function()
+hyperKeys = {}
+hyperKeys['-'] = function() toggleWifi() end
+hyperKeys['1'] = function()
+  setMusicDevice()
+  toggleApp('Spotify')
+end
+hyperKeys['c'] = function() toggleApp(apps.browser) end
+hyperKeys['d'] = function() toggleApp('Dash') end
+hyperKeys['e'] = function() toggleApp('MailMate') end
+hyperKeys['f'] = function() toggleApp('Firefox') end
+hyperKeys['h'] = function() hs.toggleConsole() end
+hyperKeys['i'] = function() switchToIde() end
+hyperKeys['m'] = function()
   setAudioOutput(talkDevice)
   toggleApp('Mumble')
-end)
-hs.hotkey.bind(modHyper, 'n', function() toggleApp('nvAlt') end)
-hs.hotkey.bind(modHyper, 'o', function() toggleApp(apps.todo) end)
-hs.hotkey.bind(modHyper, 'p', function() toggleApp('1Password 7') end)
-hs.hotkey.bind(modHyper, 'q', function() toggleAudio() end)
-hs.hotkey.bind(modHyper, 's', function() toggleApp(apps.browser_secondary) end)
-hs.hotkey.bind(modHyper, 't', function() toggleApp(apps.twitter) end)
+end
+hyperKeys['n'] = function() toggleApp('nvAlt') end
+hyperKeys['o'] = function() toggleApp(apps.todo) end
+hyperKeys['p'] = function() toggleApp('1Password 7') end
+hyperKeys['q'] = function() toggleAudio() end
+hyperKeys['s'] = function() toggleApp(apps.browser_secondary) end
+hyperKeys['t'] = function() toggleApp(apps.twitter) end
+hyperKeys['w'] = function() hs.appfinder.windowFromWindowTitlePattern('^2. .*'):focus() end
+hyperKeys['x'] = function() hs.grid.show() end
+hyperKeys['z'] = function() hs.appfinder.windowFromWindowTitlePattern('^1. .*'):focus() end
+hyperKeys['space'] = function() hs.timer.doAfter(1, function() hs.caffeinate.startScreensaver() end) end
+
+for hotkey, fn in pairs(hyperKeys) do
+  hs.hotkey.bind(modHyper, hotkey, fn)
+end
+
 hs.hotkey.bind({'cmd', 'shift'}, 'v', function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
-hs.hotkey.bind(modHyper, 'w', function() hs.appfinder.windowFromWindowTitlePattern('^2. .*'):focus() end)
-hs.hotkey.bind(modHyper, 'x', function() hs.grid.show() end)
-hs.hotkey.bind(modHyper, 'z', function() hs.appfinder.windowFromWindowTitlePattern('^1. .*'):focus() end)
-hs.hotkey.bind(modHyper, 'space', function() hs.timer.doAfter(1, function() hs.caffeinate.startScreensaver() end) end)
+hs.hotkey.bind(altCmd, 'f', function() hs.window.focusedWindow():maximize() end)
+
 -- Display a menubar item to indicate if the Internet is reachable
 reachabilityMenuItem = require("reachabilityMenuItem"):start()
 
