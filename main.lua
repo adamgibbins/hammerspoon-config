@@ -109,6 +109,12 @@ function switchToIde()
   end
 end
 
+if hs.application('Sblack') then
+  slack = 'Sblack'
+else
+  slack = 'Slack'
+end
+
 apps = {
   todo = 'Remember The Milk',
   terminal = 'Terminal',
@@ -116,6 +122,7 @@ apps = {
   browser = 'Google Chrome',
   browser_secondary = 'Safari',
   mail = 'MailMate',
+  slack = slack,
 }
 
 laptopScreen = hs.screen.find('Color LCD')
@@ -145,7 +152,7 @@ laptopLayout = {
   {'Discord',              nil, laptopScreen, hs.layout.right75,   nil, nil},
   {apps.twitter,           nil, laptopScreen, hs.layout.right75,   nil, nil},
   {apps.todo,              nil, laptopScreen, hs.layout.right75,   nil, nil},
-  {'Slack',                nil, laptopScreen, hs.layout.right75,   nil, nil},
+  {apps.slack,             nil, laptopScreen, hs.layout.right75,   nil, nil},
 }
 
 function enterWork()
@@ -175,6 +182,7 @@ hyperKeys['1'] = function()
   setMusicDevice()
   toggleApp('Spotify')
 end
+hyperKeys['a'] = function() toggleApp('Discord') end
 hyperKeys['c'] = function() toggleApp(apps.browser) end
 hyperKeys['d'] = function() toggleApp('Dash') end
 hyperKeys['e'] = function() toggleApp('MailMate') end
@@ -189,7 +197,7 @@ hyperKeys['n'] = function() toggleApp('nvAlt') end
 hyperKeys['o'] = function() toggleApp(apps.todo) end
 hyperKeys['p'] = function() toggleApp('1Password 7') end
 hyperKeys['q'] = function() toggleAudio() end
-hyperKeys['s'] = function() toggleApp(apps.browser_secondary) end
+hyperKeys['s'] = function() toggleApp(apps.slack) end
 hyperKeys['t'] = function() toggleApp(apps.twitter) end
 hyperKeys['w'] = function() hs.appfinder.windowFromWindowTitlePattern('^2. .*'):focus() end
 hyperKeys['x'] = function() hs.grid.show() end
