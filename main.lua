@@ -109,20 +109,14 @@ function switchToIde()
   end
 end
 
-if hs.application('Sblack') then
-  slack = 'Sblack'
-else
-  slack = 'Slack'
-end
-
 apps = {
   todo = 'Remember The Milk',
   terminal = 'Terminal',
-  twitter = 'Tweetbot',
+  twitter = 'TweetDeck',
   browser = 'Google Chrome',
   browser_secondary = 'Safari',
   mail = 'MailMate',
-  slack = slack,
+  slack = 'Slack',
 }
 
 laptopScreen = hs.screen.find('Color LCD')
@@ -185,7 +179,7 @@ end
 hyperKeys['a'] = function() toggleApp('Discord') end
 hyperKeys['c'] = function() toggleApp(apps.browser) end
 hyperKeys['d'] = function() toggleApp('Dash') end
-hyperKeys['e'] = function() toggleApp('MailMate') end
+--hyperKeys['e'] = function() toggleApp('MailMate') end
 hyperKeys['f'] = function() toggleApp('Firefox') end
 hyperKeys['h'] = function() hs.toggleConsole() end
 hyperKeys['i'] = function() switchToIde() end
@@ -193,7 +187,7 @@ hyperKeys['m'] = function()
   setAudioOutput(talkDevice)
   toggleApp('Mumble')
 end
-hyperKeys['n'] = function() toggleApp('nvAlt') end
+hyperKeys['n'] = function() toggleApp('Inkdrop') end
 hyperKeys['o'] = function() toggleApp(apps.todo) end
 hyperKeys['p'] = function() toggleApp('1Password 7') end
 hyperKeys['q'] = function() toggleAudio() end
