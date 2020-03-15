@@ -7,6 +7,7 @@ musicDevices = {
   'WH-1000XM3',
   'aeg-qc35',
   'ODAC',
+  'EarStudio USB DAC',
   'Headphones',
   'Built-in Output',
 }
