@@ -1,9 +1,10 @@
 local external_screen = "C49RG9x"
-local builtin_screen  = "Built-in Retina Display"
+local builtin_screen = "Built-in Retina Display"
 
 local hostname = hs.host.localizedName()
 
 -- First match wins, so keep external above builtin screen
+-- stylua: ignore start
 local profiles = {
   {
     machine = "CW9LKX6L63",
@@ -68,6 +69,7 @@ local profiles = {
     },
   },
 }
+-- stylua: ignore end
 
 hs.ipc.cliInstall()
 
@@ -83,20 +85,22 @@ hs.window.animationDuration = 0.1
 
 local function notify(title, description, time)
   time = time or 2
-  hs.notify.new({
-    title=title,
-    informativeText=description,
-    withdrawAfter=time,
-  }):send()
+  hs.notify
+    .new({
+      title = title,
+      informativeText = description,
+      withdrawAfter = time,
+    })
+    :send()
 end
 
 configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
-    for _,file in pairs(files) do
-      if file:sub(-4) == '.lua' then
-        hs.reload()
-      end
+  for _, file in pairs(files) do
+    if file:sub(-4) == ".lua" then
+      hs.reload()
     end
-  end)
+  end
+end)
 configWatcher:start()
 
 local function getActiveProfileAndScreen()
@@ -150,10 +154,14 @@ end
 windowFilter = hs.window.filter.new(getWatchedAppNames())
 windowFilter:subscribe(hs.window.filter.windowCreated, function(win)
   local app = win:application()
-  if not app then return end
+  if not app then
+    return
+  end
   local appName = app:name()
   local profile, screen = getActiveProfileAndScreen()
-  if not profile then return end
+  if not profile then
+    return
+  end
   for _, layout in ipairs(profile.layouts) do
     if layout[1] == appName then
       local sf = screen:frame()
