@@ -1,6 +1,8 @@
 local external_monitor = "C49RG9x"
 local builtin_monitor  = "Built-in Retina Display"
 
+local hostname = hs.host.localizedName()
+
 -- First match wins, so keep external above internal monitor
 local profiles = {
   {
@@ -91,13 +93,12 @@ configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
 configWatcher:start()
 
 local function getActiveProfile()
-  local machine = hs.host.localizedName()
   local screenNames = {}
   for _, screen in ipairs(hs.screen.allScreens()) do
     screenNames[screen:name()] = true
   end
   for _, profile in ipairs(profiles) do
-    if profile.machine == machine and screenNames[profile.monitor] then
+    if profile.machine == hostname and screenNames[profile.monitor] then
       return profile
     end
   end
@@ -154,7 +155,9 @@ end
 
 windowFilter = hs.window.filter.new(getWatchedAppNames())
 windowFilter:subscribe(hs.window.filter.windowCreated, function(win)
-  local appName = win:application():name()
+  local app = win:application()
+  if not app then return end
+  local appName = app:name()
   local profile = getActiveProfile()
   if not profile then return end
   local screen = findScreen(profile.monitor)
