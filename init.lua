@@ -1,36 +1,6 @@
 local external_monitor = "C49RG9x"
 local builtin_monitor  = "Built-in Retina Display"
 
-hs.ipc.cliInstall()
-
-hs.autoLaunch(true)
-hs.automaticallyCheckForUpdates(true)
-hs.preferencesDarkMode(true)
-hs.accessibilityState(true)
-hs.dockIcon(false)
-hs.menuIcon(false)
-hs.consoleOnTop(true)
-
-hs.window.animationDuration = 0.1
-
-local function notify(title, description, time)
-  time = time or 2
-  hs.notify.new({
-    title=title,
-    informativeText=description,
-    withdrawAfter=time,
-  }):send()
-end
-
-local configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
-    for _,file in pairs(files) do
-      if file:sub(-4) == '.lua' then
-        hs.reload()
-      end
-    end
-  end)
-configWatcher:start()
-
 -- First match wins, so keep external above internal monitor
 local profiles = {
   {
@@ -89,6 +59,36 @@ local profiles = {
     },
   },
 }
+
+hs.ipc.cliInstall()
+
+hs.autoLaunch(true)
+hs.automaticallyCheckForUpdates(true)
+hs.preferencesDarkMode(true)
+hs.accessibilityState(true)
+hs.dockIcon(false)
+hs.menuIcon(false)
+hs.consoleOnTop(true)
+
+hs.window.animationDuration = 0.1
+
+local function notify(title, description, time)
+  time = time or 2
+  hs.notify.new({
+    title=title,
+    informativeText=description,
+    withdrawAfter=time,
+  }):send()
+end
+
+local configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
+    for _,file in pairs(files) do
+      if file:sub(-4) == '.lua' then
+        hs.reload()
+      end
+    end
+  end)
+configWatcher:start()
 
 local function getActiveProfile()
   local machine = hs.host.localizedName()
