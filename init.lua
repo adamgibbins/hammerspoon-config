@@ -81,7 +81,7 @@ local function notify(title, description, time)
   }):send()
 end
 
-local configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
+configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
     for _,file in pairs(files) do
       if file:sub(-4) == '.lua' then
         hs.reload()
@@ -138,7 +138,7 @@ local function applyLayouts()
   hs.layout.apply(entries)
 end
 
-local appWatcher = hs.application.watcher.new(function(name, event, _app)
+appWatcher = hs.application.watcher.new(function(name, event, _app)
   if event ~= hs.application.watcher.launched then return end
   local profile = getActiveProfile()
   if not profile then return end
@@ -153,7 +153,7 @@ local appWatcher = hs.application.watcher.new(function(name, event, _app)
 end)
 appWatcher:start()
 
-local screenWatcher = hs.screen.watcher.new(applyLayouts)
+screenWatcher = hs.screen.watcher.new(applyLayouts)
 screenWatcher:start()
 
 applyLayouts()
