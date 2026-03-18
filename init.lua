@@ -31,32 +31,32 @@ local configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
   end)
 configWatcher:start()
 
--- First match wins, so keep external above internal monitor 
+-- First match wins, so keep external above internal monitor
 local profiles = {
   {
     machine = "CW9LKX6L63",
     monitor = external_monitor,
     layouts = {
       -- Top left
-      { "Microsoft Teams", nil, { x = 0,    y = 0,   w = 1044, h = 1082 } },
+      { "Microsoft Teams", nil, { x = 0,    y = 0,   w = 1044, h = 1082 }, launch=true },
       -- Top right
-      { "Obsidian",        nil, { x = 3794, y = 0,   w = 1326, h = 809  } },
+      { "Obsidian",        nil, { x = 3794, y = 0,   w = 1326, h = 809  }, launch=true },
       { "OmniFocus",       nil, { x = 3794, y = 0,   w = 1326, h = 809  } },
       -- Bottom right
       { "Spotify",         nil, { x = 3794, y = 809, w = 1326, h = 601  } },
       -- Middle
-      { "Ghostty",         nil, { x = 1044, y = 0,   w = 2750, h = 1440 } },
-      { "Microsoft Edge",  nil, { x = 1044, y = 0,   w = 2750, h = 1440 } },
-      { "Code",            nil, { x = 1044, y = 0,   w = 2750, h = 1440 } },
+      { "Ghostty",         nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
+      { "Microsoft Edge",  nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
+      { "Code",            nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
     },
   },
   {
     machine = "CW9LKX6L63",
     monitor = builtin_monitor,
     layouts = {
-      { "Ghostty",        nil, { x = 0, y = 0, w = 2560, h = 1440 } },
-      { "Microsoft Edge", nil, { x = 0, y = 0, w = 2560, h = 1440 } },
-      { "Code",           nil, { x = 0, y = 0, w = 2560, h = 1440 } },
+      { "Ghostty",        nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
+      { "Microsoft Edge", nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
+      { "Code",           nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
     },
   },
   {
@@ -69,13 +69,13 @@ local profiles = {
       { "WhatsApp",        nil, { x = 0, y = 720, w = 1044, h = 719 } },
       { "Beeper",          nil, { x = 0, y = 720, w = 1044, h = 690 } },
       -- Top right
-      { "Obsidian",        nil, { x = 3794, y = 0, w = 1326, h = 809 } },
-      { "OmniFocus",       nil, { x = 3794, y = 0, w = 1326, h = 809 } },
+      { "Obsidian",        nil, { x = 3794, y = 0, w = 1326, h = 809 }, launch=true },
+      { "OmniFocus",       nil, { x = 3794, y = 0, w = 1326, h = 809 }, launch=true },
       -- Bottom right
-      { "Spotify",         nil, { x = 3794, y = 809, w = 1326, h = 601 } },
+      { "Spotify",         nil, { x = 3794, y = 809, w = 1326, h = 601 }, launch=true },
       -- Middle
-      { "Ghostty",         nil, { x = 1044, y = 0, w = 2750, h = 1440 } },
-      { "Microsoft Edge",  nil, { x = 1044, y = 0, w = 2750, h = 1440 } },
+      { "Ghostty",         nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
+      { "Microsoft Edge",  nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
       { "Code",            nil, { x = 1044, y = 0, w = 2750, h = 1440 } },
     },
   },
@@ -83,8 +83,8 @@ local profiles = {
     machine = "aeg-laptop23",
     monitor = builtin_monitor,
     layouts = {
-      { "Ghostty",        nil, { x = 0, y = 0, w = 2560, h = 1440 } },
-      { "Microsoft Edge", nil, { x = 0, y = 0, w = 2560, h = 1440 } },
+      { "Ghostty",        nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
+      { "Microsoft Edge", nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
       { "Code",           nil, { x = 0, y = 0, w = 2560, h = 1440 } },
     },
   },
@@ -129,7 +129,11 @@ local function applyLayouts()
   end
   local entries = {}
   for _, layout in ipairs(profile.layouts) do
-    table.insert(entries, buildEntry(layout, screen))
+    if layout.launch and not hs.application.find(layout[1], true) then
+      hs.application.open(layout[1])
+    else
+      table.insert(entries, buildEntry(layout, screen))
+    end
   end
   hs.layout.apply(entries)
 end
