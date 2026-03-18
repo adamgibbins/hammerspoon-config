@@ -1,13 +1,13 @@
-local external_monitor = "C49RG9x"
-local builtin_monitor  = "Built-in Retina Display"
+local external_screen = "C49RG9x"
+local builtin_screen  = "Built-in Retina Display"
 
 local hostname = hs.host.localizedName()
 
--- First match wins, so keep external above internal monitor
+-- First match wins, so keep external above builtin screen
 local profiles = {
   {
     machine = "CW9LKX6L63",
-    monitor = external_monitor,
+    screen = external_screen,
     layouts = {
       -- Top left
       { "Microsoft Teams", nil, { x = 0,    y = 0,   w = 1044, h = 1082 }, launch=true },
@@ -24,7 +24,7 @@ local profiles = {
   },
   {
     machine = "CW9LKX6L63",
-    monitor = builtin_monitor,
+    screen = builtin_screen,
     layouts = {
       { "Ghostty",        nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
       { "Microsoft Edge", nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
@@ -33,7 +33,7 @@ local profiles = {
   },
   {
     machine = "aeg-laptop23",
-    monitor = external_monitor,
+    screen = external_screen,
     layouts = {
       -- Top left
       { "Discord",         nil, { x = 0, y = 0, w = 1044, h = 720 } },
@@ -53,7 +53,7 @@ local profiles = {
   },
   {
     machine = "aeg-laptop23",
-    monitor = builtin_monitor,
+    screen = builtin_screen,
     layouts = {
       { "Ghostty",        nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
       { "Microsoft Edge", nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
@@ -92,21 +92,13 @@ configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
   end)
 configWatcher:start()
 
-local function getActiveProfile()
-  local screenNames = {}
-  for _, screen in ipairs(hs.screen.allScreens()) do
-    screenNames[screen:name()] = true
-  end
-  for _, profile in ipairs(profiles) do
-    if profile.machine == hostname and screenNames[profile.monitor] then
-      return profile
-    end
-  end
-end
-
-local function findScreen(name)
+local function getActiveProfileAndScreen()
   for _, s in ipairs(hs.screen.allScreens()) do
-    if s:name() == name then return s end
+    for _, profile in ipairs(profiles) do
+      if profile.machine == hostname and profile.screen == s:name() then
+        return profile, s
+      end
+    end
   end
 end
 
@@ -118,14 +110,9 @@ local function buildEntry(layout, screen)
 end
 
 local function applyLayouts()
-  local profile = getActiveProfile()
+  local profile, screen = getActiveProfileAndScreen()
   if not profile then
-    hs.alert.show("No matching profile found for this machine/monitor.")
-    return
-  end
-  local screen = findScreen(profile.monitor)
-  if not screen then
-    hs.alert.show("Monitor not found: " .. tostring(profile.monitor))
+    hs.alert.show("No matching profile found for this machine/screen.")
     return
   end
   local entries = {}
@@ -158,10 +145,8 @@ windowFilter:subscribe(hs.window.filter.windowCreated, function(win)
   local app = win:application()
   if not app then return end
   local appName = app:name()
-  local profile = getActiveProfile()
+  local profile, screen = getActiveProfileAndScreen()
   if not profile then return end
-  local screen = findScreen(profile.monitor)
-  if not screen then return end
   for _, layout in ipairs(profile.layouts) do
     if layout[1] == appName then
       local sf = screen:frame()
