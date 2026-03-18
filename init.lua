@@ -138,20 +138,36 @@ local function applyLayouts()
   hs.layout.apply(entries)
 end
 
-appWatcher = hs.application.watcher.new(function(name, event, _app)
-  if event ~= hs.application.watcher.launched then return end
+local function getWatchedAppNames()
+  local seen = {}
+  local names = {}
+  for _, profile in ipairs(profiles) do
+    for _, layout in ipairs(profile.layouts) do
+      if not seen[layout[1]] then
+        seen[layout[1]] = true
+        table.insert(names, layout[1])
+      end
+    end
+  end
+  return names
+end
+
+windowFilter = hs.window.filter.new(getWatchedAppNames())
+windowFilter:subscribe(hs.window.filter.windowCreated, function(win)
+  local appName = win:application():name()
   local profile = getActiveProfile()
   if not profile then return end
   local screen = findScreen(profile.monitor)
   if not screen then return end
   for _, layout in ipairs(profile.layouts) do
-    if layout[1] == name then
-      local entry = buildEntry(layout, screen)
-      hs.layout.apply({ entry })
+    if layout[1] == appName then
+      local sf = screen:frame()
+      local pos = layout[3]
+      win:setFrame(hs.geometry.rect(sf.x + pos.x, sf.y + pos.y, pos.w, pos.h))
+      break
     end
   end
 end)
-appWatcher:start()
 
 screenWatcher = hs.screen.watcher.new(applyLayouts)
 screenWatcher:start()
