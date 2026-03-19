@@ -84,7 +84,9 @@ function obj:resume()
 end
 
 function obj:reset()
-  if self.state == STATE.IDLE then return end
+  if self.state == STATE.IDLE then
+    return
+  end
   if self.timer then
     self.timer:stop()
   end
