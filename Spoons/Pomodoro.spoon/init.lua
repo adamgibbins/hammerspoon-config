@@ -21,6 +21,8 @@ function obj:init()
   self.timeLeft = 0
   self.isWorkSession = true
   self.menuItem = hs.menubar.new()
+  self.completedToday = 0
+  self.lastDateCheck = os.date("%Y-%m-%d")
   self:_renderMenu()
 end
 
@@ -117,6 +119,7 @@ end
 function obj:_completeSession()
   if self.isWorkSession then
     hs.alert.show("Work done!", { textSize = 60 }, 5)
+    self.completedToday = self.completedToday + 1
   else
     hs.alert.show("Break done!", { textSize = 60 }, 5)
   end
@@ -146,11 +149,18 @@ function obj:_formatTime()
 end
 
 function obj:_renderMenu()
+  local today = os.date("%Y-%m-%d")
+  if today ~= self.lastDateCheck then
+    self.completedToday = 0
+    self.lastDateCheck = today
+  end
+
   local emoji = self:_getEmoji()
 
   if self.state == STATE.IDLE then
     local label = self.isWorkSession and "Start Work" or "Start Break"
-    self.menuItem:setTitle(emoji)
+    local countLabel = self.completedToday > 0 and (" (" .. self.completedToday .. ")") or ""
+    self.menuItem:setTitle(emoji .. countLabel)
     self.menuItem:setMenu({
       {
         title = label,
