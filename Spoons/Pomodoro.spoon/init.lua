@@ -84,7 +84,13 @@ function obj:resume()
 end
 
 function obj:reset()
-  self.timeLeft = self.isWorkSession and self.workSeconds or self.breakSeconds
+  if self.state == STATE.IDLE then return end
+  if self.timer then
+    self.timer:stop()
+  end
+  self.state = STATE.IDLE
+  self.timeLeft = 0
+  self:_log("reset")
   self:_renderMenu()
 end
 
@@ -104,19 +110,22 @@ function obj:_startCountdown()
     self.timer:stop()
   end
 
-  self.timer = hs.timer.doWhile(function()
-    return self.state == STATE.WORKING or self.state == STATE.BREAKING
-  end, function()
+  self.timer = hs.timer.doEvery(1, function()
     self.timeLeft = self.timeLeft - 1
     self:_renderMenu()
 
-    if self.timeLeft == 0 then
+    if self.timeLeft <= 0 then
       self:_completeSession()
     end
-  end, 1)
+  end)
 end
 
 function obj:_completeSession()
+  if self.timer then
+    self.timer:stop()
+    self.timer = nil
+  end
+
   if self.isWorkSession then
     hs.alert.show("Work done!", { textSize = 60 }, 5)
     self.completedToday = self.completedToday + 1
@@ -127,10 +136,12 @@ function obj:_completeSession()
   hs.sound.getByName("Glass"):play()
 
   self:_log("completed")
+  if self.isWorkSession then
+    hs.shortcuts.run(self.workEndShortcut)
+  end
   self.isWorkSession = not self.isWorkSession
   self.state = STATE.IDLE
   self.timeLeft = 0
-  hs.shortcuts.run(self.workEndShortcut)
   self:_renderMenu()
 end
 
