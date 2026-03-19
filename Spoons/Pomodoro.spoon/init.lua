@@ -7,7 +7,7 @@ obj.workStartShortcut = "Quiet Focus On"
 obj.workEndShortcut = "Quiet Focus Off"
 obj.logFile = os.getenv("HOME") .. "/.pomodoro.log"
 
-obj.defaultHotkey = {{"cmd", "ctrl", "alt"}, "P"}
+obj.defaultHotkey = { { "cmd", "ctrl", "alt" }, "P" }
 
 local STATE = {
   IDLE = "idle",
@@ -102,27 +102,23 @@ function obj:_startCountdown()
     self.timer:stop()
   end
 
-  self.timer = hs.timer.doWhile(
-    function()
-      return self.state == STATE.WORKING or self.state == STATE.BREAKING
-    end,
-    function()
-      self.timeLeft = self.timeLeft - 1
-      self:_renderMenu()
+  self.timer = hs.timer.doWhile(function()
+    return self.state == STATE.WORKING or self.state == STATE.BREAKING
+  end, function()
+    self.timeLeft = self.timeLeft - 1
+    self:_renderMenu()
 
-      if self.timeLeft == 0 then
-        self:_completeSession()
-      end
-    end,
-    1
-  )
+    if self.timeLeft == 0 then
+      self:_completeSession()
+    end
+  end, 1)
 end
 
 function obj:_completeSession()
   if self.isWorkSession then
-    hs.alert.show("Work done!", {textSize = 60}, 5)
+    hs.alert.show("Work done!", { textSize = 60 }, 5)
   else
-    hs.alert.show("Break done!", {textSize = 60}, 5)
+    hs.alert.show("Break done!", { textSize = 60 }, 5)
   end
 
   hs.sound.getByName("Glass"):play()
@@ -156,7 +152,12 @@ function obj:_renderMenu()
     local label = self.isWorkSession and "Start Work" or "Start Break"
     self.menuItem:setTitle(emoji)
     self.menuItem:setMenu({
-      {title = label, fn = function() self:start() end}
+      {
+        title = label,
+        fn = function()
+          self:start()
+        end,
+      },
     })
   else
     local timeStr = self:_formatTime()
@@ -164,13 +165,33 @@ function obj:_renderMenu()
 
     if self.state == STATE.PAUSED then
       self.menuItem:setMenu({
-        {title = "Resume", fn = function() self:resume() end},
-        {title = "Reset", fn = function() self:reset() end}
+        {
+          title = "Resume",
+          fn = function()
+            self:resume()
+          end,
+        },
+        {
+          title = "Reset",
+          fn = function()
+            self:reset()
+          end,
+        },
       })
     else
       self.menuItem:setMenu({
-        {title = "Pause", fn = function() self:pause() end},
-        {title = "Reset", fn = function() self:reset() end}
+        {
+          title = "Pause",
+          fn = function()
+            self:pause()
+          end,
+        },
+        {
+          title = "Reset",
+          fn = function()
+            self:reset()
+          end,
+        },
       })
     end
   end
