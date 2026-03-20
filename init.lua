@@ -1,5 +1,6 @@
 local external_screen = "C49RG9x"
 local builtin_screen = "Built-in Retina Display"
+local audio_output_device = "Scarlett Solo USB"
 
 local hostname = hs.host.localizedName()
 
@@ -184,6 +185,17 @@ screenWatcher = hs.screen.watcher.new(applyLayouts)
 screenWatcher:start()
 
 applyLayouts()
+
+hs.audiodevice.watcher.setCallback(function(event)
+  if event == "dev#" then
+    local output = hs.audiodevice.findDeviceByName(audio_output_device)
+    if output and output ~= hs.audiodevice.defaultOutputDevice() then
+      output:setDefaultOutputDevice()
+      print("Switched audio output to " .. audio_output_device)
+    end
+  end
+end)
+hs.audiodevice.watcher.start()
 
 hs.loadSpoon("Pomodoro")
 spoon.Pomodoro:bindHotkeys()
