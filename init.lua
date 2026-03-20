@@ -178,7 +178,6 @@ screenWatcher:start()
 applyLayouts()
 
 hs.loadSpoon("Pomodoro")
-spoon.Pomodoro:init()
 spoon.Pomodoro:bindHotkeys()
 
 notify("Hammerspoon", "Config loaded")
