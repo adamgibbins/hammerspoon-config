@@ -1,6 +1,7 @@
 local external_screen = "C49RG9x"
 local builtin_screen = "Built-in Retina Display"
 local audio_output_device = "Scarlett Solo USB"
+local modHyper = { "cmd", "alt", "ctrl" }
 
 local hostname = hs.host.localizedName()
 
@@ -202,5 +203,12 @@ hs.audiodevice.watcher.start()
 
 hs.loadSpoon("Pomodoro")
 spoon.Pomodoro:bindHotkeys()
+
+hs.loadSpoon("SpoonInstall")
+spoon.SpoonInstall:andUse('MouseCircle', {
+  hotkeys = {
+    show = { modHyper, ']' }
+  }
+})
 
 notify("Hammerspoon", "Config loaded")

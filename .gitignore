@@ -4,3 +4,6 @@
 tags
 /.idea/
 .cli.history
+/Spoons/*
+!/Spoons/SpoonInstall.spoon
+!/Spoons/Pomodoro.spoon
