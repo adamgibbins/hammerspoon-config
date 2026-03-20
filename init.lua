@@ -205,10 +205,10 @@ hs.loadSpoon("Pomodoro")
 spoon.Pomodoro:bindHotkeys()
 
 hs.loadSpoon("SpoonInstall")
-spoon.SpoonInstall:andUse('MouseCircle', {
+spoon.SpoonInstall:andUse("MouseCircle", {
   hotkeys = {
-    show = { modHyper, ']' }
-  }
+    show = { modHyper, "]" },
+  },
 })
 
 notify("Hammerspoon", "Config loaded")
