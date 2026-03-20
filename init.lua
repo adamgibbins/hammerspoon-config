@@ -94,10 +94,18 @@ local function notify(title, description, time)
     :send()
 end
 
+local reloadTimer = nil
 configWatcher = hs.pathwatcher.new(hs.configdir, function(files)
   for _, file in pairs(files) do
     if file:sub(-4) == ".lua" then
-      hs.reload()
+      if reloadTimer then
+        reloadTimer:stop()
+      end
+      reloadTimer = hs.timer.doAfter(0.5, function()
+        print("Reloading config due to changes in " .. file)
+        hs.reload()
+      end)
+      return
     end
   end
 end)
