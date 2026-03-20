@@ -139,11 +139,13 @@ local function applyLayouts()
   for _, layout in ipairs(profile.layouts) do
     if layout.launch and not hs.application.find(layout[1], true) then
       hs.application.open(layout[1])
-    else
+      print("Launched " .. layout[1])
+    elseif hs.application.find(layout[1], true) then
       table.insert(entries, buildEntry(layout, screen))
     end
   end
   hs.layout.apply(entries)
+  print("Applied layout for " .. profile.machine .. " on screen " .. profile.screen)
 end
 
 local function getWatchedAppNames()
@@ -176,6 +178,7 @@ windowFilter:subscribe(hs.window.filter.windowCreated, function(win)
       local sf = screen:frame()
       local pos = layout[3]
       win:setFrame(hs.geometry.rect(sf.x + pos.x, sf.y + pos.y, pos.w, pos.h))
+      print("Repositioned " .. appName)
       break
     end
   end
