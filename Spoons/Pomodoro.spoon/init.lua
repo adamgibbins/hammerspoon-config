@@ -7,8 +7,6 @@ obj.workStartShortcut = "Quiet Focus On"
 obj.workEndShortcut = "Quiet Focus Off"
 obj.logFile = os.getenv("HOME") .. "/.pomodoro.log"
 
-obj.defaultHotkey = { { "cmd", "ctrl", "alt" }, "P" }
-
 local STATE = {
   IDLE = "idle",
   WORKING = "working",
@@ -36,7 +34,7 @@ function obj:bindHotkeys(mapping)
     self.hotkeyObj:delete()
   end
 
-  local keys = mapping and mapping.toggle or self.defaultHotkey
+  local keys = mapping and mapping.toggle
   self.hotkeyObj = hs.hotkey.bind(keys[1], keys[2], function()
     self:_handleHotkeyPress()
   end)

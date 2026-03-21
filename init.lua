@@ -202,7 +202,7 @@ end)
 hs.audiodevice.watcher.start()
 
 hs.loadSpoon("Pomodoro")
-spoon.Pomodoro:bindHotkeys()
+spoon.Pomodoro:bindHotkeys({ toggle = { modHyper, "p" } })
 
 hs.loadSpoon("SpoonInstall")
 spoon.SpoonInstall:andUse("MouseCircle", {
