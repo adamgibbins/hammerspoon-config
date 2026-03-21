@@ -79,9 +79,6 @@ function obj:resume()
   if self.state == STATE.PAUSED then
     local isWork = self.isWorkSession
     self.state = isWork and STATE.WORKING or STATE.BREAKING
-    if isWork then
-      hs.shortcuts.run(self.workStartShortcut)
-    end
     self:_log("resumed")
     self:_startCountdown()
     self:_renderMenu()
@@ -94,6 +91,9 @@ function obj:reset()
   end
   if self.timer then
     self.timer:stop()
+  end
+  if self.isWorkSession then
+    hs.shortcuts.run(self.workEndShortcut)
   end
   self.state = STATE.IDLE
   self.timeLeft = 0
