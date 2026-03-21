@@ -23,6 +23,11 @@ function obj:init()
   self.menuItem = hs.menubar.new()
   self.completedToday = 0
   self.lastDateCheck = os.date("%Y-%m-%d")
+  self.idleRefreshTimer = hs.timer.doEvery(60, function()
+    if self.state == STATE.IDLE then
+      self:_renderMenu()
+    end
+  end)
   self:_renderMenu()
 end
 
