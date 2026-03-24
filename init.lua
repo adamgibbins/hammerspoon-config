@@ -62,12 +62,12 @@ local profiles = {
     machine = "aeg-laptop23",
     screen = builtin_screen,
     layouts = {
-      { "Ghostty",         nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
-      { "Microsoft Edge",  nil, { x = 0, y = 0, w = 2560, h = 1440 }, launch=true },
-      { "Google Chrome",   nil, { x = 1044, y = 0, w = 2750, h = 1440 }, },
-      { "Firefox",         nil, { x = 1044, y = 0, w = 2750, h = 1440 }, },
-      { "Firefox Developer Edition", nil, { x = 1044, y = 0, w = 2750, h = 1440 }, },
-      { "Code",            nil, { x = 0, y = 0, w = 2560, h = 1440 } },
+      { "Ghostty",         nil, { x = 0, y = 0, w = 1800, h = 1169 }, launch=true },
+      { "Microsoft Edge",  nil, { x = 0, y = 0, w = 1800, h = 1169 }, launch=true },
+      { "Google Chrome",   nil, { x = 0, y = 0, w = 1800, h = 1169 }, },
+      { "Firefox",         nil, { x = 0, y = 0, w = 1800, h = 1169 }, },
+      { "Firefox Developer Edition", nil, { x = 0, y = 0, w = 1800, h = 1169 }, },
+      { "Code",            nil, { x = 0, y = 0, w = 1800, h = 1169 } },
     },
   },
 }
