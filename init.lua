@@ -51,6 +51,7 @@ local profiles = {
       { "Spotify",         nil, { x = 3794, y = 809, w = 1326, h = 601 }, launch=true },
       -- Middle
       { "Ghostty",         nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
+      { "Fastmail",        nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
       { "Microsoft Edge",  nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
       { "Google Chrome",   nil, { x = 1044, y = 0, w = 2750, h = 1440 }, },
       { "Firefox",         nil, { x = 1044, y = 0, w = 2750, h = 1440 }, },
@@ -63,6 +64,7 @@ local profiles = {
     screen = builtin_screen,
     layouts = {
       { "Ghostty",         nil, { x = 0, y = 0, w = 1800, h = 1169 }, launch=true },
+      { "Fastmail",        nil, { x = 0, y = 0, w = 1800, h = 1169 }, launch=true },
       { "Microsoft Edge",  nil, { x = 0, y = 0, w = 1800, h = 1169 }, launch=true },
       { "Google Chrome",   nil, { x = 0, y = 0, w = 1800, h = 1169 }, },
       { "Firefox",         nil, { x = 0, y = 0, w = 1800, h = 1169 }, },
