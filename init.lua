@@ -1,7 +1,8 @@
 local external_screen = "C49RG9x"
 local builtin_screen = "Built-in Retina Display"
 local audio_output_device = "Scarlett Solo USB"
-local modHyper = { "cmd", "alt", "ctrl" }
+-- Implemented with https://hyperkey.app/
+local modHyper = { "cmd", "alt", "ctrl", "shift" }
 
 local hostname = hs.host.localizedName()
 
@@ -203,14 +204,32 @@ hs.audiodevice.watcher.setCallback(function(event)
 end)
 hs.audiodevice.watcher.start()
 
-hs.loadSpoon("Pomodoro")
-spoon.Pomodoro:bindHotkeys({ toggle = { modHyper, "p" } })
+local previousFocus = nil
+local function toggleApp(appName, launchName)
+  local focused = hs.window.focusedWindow()
+  if focused and string.find(focused:application():name(), appName, 1, true) and previousFocus then
+    previousFocus:focus()
+    previousFocus = focused
+  else
+    previousFocus = focused
+    hs.application.launchOrFocus(launchName or appName)
+  end
+end
 
+hs.loadSpoon("Pomodoro")
 hs.loadSpoon("SpoonInstall")
-spoon.SpoonInstall:andUse("MouseCircle", {
-  hotkeys = {
-    show = { modHyper, "]" },
-  },
-})
+spoon.SpoonInstall:andUse("MouseCircle")
+
+-- modHyper bindings (sorted by key)
+hs.hotkey.bind(modHyper, "]", function() spoon.MouseCircle:show() end)
+hs.hotkey.bind(modHyper, "a", function() toggleApp("Ghostty") end)
+hs.hotkey.bind(modHyper, "b", function() toggleApp("Microsoft Edge") end)
+hs.hotkey.bind(modHyper, "e", function() toggleApp("Code", "Visual Studio Code") end)
+hs.hotkey.bind(modHyper, "m", function() toggleApp("Fastmail") end)
+hs.hotkey.bind(modHyper, "n", function() toggleApp("Obsidian") end)
+hs.hotkey.bind(modHyper, "o", function() toggleApp("OmniFocus") end)
+spoon.Pomodoro:bindHotkeys({ toggle = { modHyper, "p" } })
+hs.hotkey.bind(modHyper, "s", function() toggleApp("Spotify") end)
+hs.hotkey.bind(modHyper, "w", function() toggleApp("WhatsApp") end)
 
 notify("Hammerspoon", "Config loaded")
