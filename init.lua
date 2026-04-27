@@ -25,6 +25,7 @@ local profiles = {
       { "Microsoft Edge",  nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
       { "Firefox",         nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, },
       { "Code",            nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
+      { "Microsoft Outlook", nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
     },
   },
   {
