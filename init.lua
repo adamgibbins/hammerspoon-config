@@ -19,7 +19,7 @@ local profiles = {
       { "Obsidian",        nil, { x = 3794, y = 0,   w = 1326, h = 809  }, launch=true },
       { "OmniFocus",       nil, { x = 3794, y = 0,   w = 1326, h = 809  } },
       -- Bottom right
-      { "Spotify",         nil, { x = 3794, y = 809, w = 1326, h = 601  } },
+      { "Music",           nil, { x = 3794, y = 809, w = 1326, h = 601  } },
       -- Middle
       { "Ghostty",         nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
       { "Microsoft Edge",  nil, { x = 1044, y = 0,   w = 2750, h = 1440 }, launch=true },
@@ -50,7 +50,7 @@ local profiles = {
       { "Obsidian",        nil, { x = 3794, y = 0, w = 1326, h = 809 }, launch=true },
       { "OmniFocus",       nil, { x = 3794, y = 0, w = 1326, h = 809 }, launch=true },
       -- Bottom right
-      { "Spotify",         nil, { x = 3794, y = 809, w = 1326, h = 601 }, launch=true },
+      { "Music",           nil, { x = 3794, y = 809, w = 1326, h = 601 }, launch=true },
       -- Middle
       { "Ghostty",         nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
       { "Fastmail",        nil, { x = 1044, y = 0, w = 2750, h = 1440 }, launch=true },
@@ -245,7 +245,7 @@ hs.hotkey.bind(modHyper, "o", function()
 end)
 spoon.Pomodoro:bindHotkeys({ toggle = { modHyper, "p" } })
 hs.hotkey.bind(modHyper, "s", function()
-  toggleApp("Spotify")
+  toggleApp("Music")
 end)
 hs.hotkey.bind(modHyper, "w", function()
   toggleApp("WhatsApp")
