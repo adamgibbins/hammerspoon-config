@@ -46,6 +46,7 @@ local profiles = {
       -- Bottom left
       { "WhatsApp",        nil, { x = 0, y = 720, w = 1044, h = 719 } },
       { "Beeper",          nil, { x = 0, y = 720, w = 1044, h = 690 } },
+      { "Signal",          nil, { x = 0, y = 720, w = 1044, h = 690 } },
       -- Top right
       { "Obsidian",        nil, { x = 3794, y = 0, w = 1326, h = 809 }, launch=true },
       { "OmniFocus",       nil, { x = 3794, y = 0, w = 1326, h = 809 }, launch=true },
